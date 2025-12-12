@@ -81,3 +81,73 @@ def format_angle(value):
         return f"{int(round(k))}π"
     frac = sp.Rational(str(k)).limit_denominator(12)
     return f"{frac.numerator}π/{frac.denominator}"
+
+#  Plot
+def create_plot(x_vals, y_vals, expr_str, a, b):
+    try:
+        fig = make_subplots()
+        y_vals = np.array(y_vals, float)
+        fig.add_trace(go.Scatter(x=x_vals, y=y_vals, name="f(x)",
+                                 line=dict(color="#2962FF")))
+        mask = (x_vals >= a) & (x_vals <= b)
+        fig.add_trace(go.Scatter(
+            x=x_vals[mask],
+            y=y_vals[mask],
+            fill='tozeroy',
+            fillcolor='rgba(0,200,83,0.2)',
+            name="Area"
+        ))
+        fig.update_layout(title=f"Grafik f(x) = {expr_str}")
+        return fig
+    except:
+        st.error("Plot gagal ditampilkan")
+        return None
+
+# Main 
+def main():
+
+    st.title("Kalkulator Solusi Integral")
+    st.title("Metode Pias Titik Tengah")
+
+    st.markdown("""
+    <div class='highlight'>
+    <b>Welcome!</b> Aplikasi ini membantu menghitung integral tentu  
+    dan tak tentu secara mudah. Dibuat oleh <b>Saila</b> ✨
+    </div>
+    """, unsafe_allow_html=True)
+
+    input_col, guide_col = st.columns([2, 1])
+
+# Kolom input
+with input_col:
+        st.markdown("### 📝 Masukkan Fungsi")
+        expr_str = st.text_input("f(x):", "x**2")
+
+        limit_type = st.radio("Jenis Input Limit:", ["Decimal", "Angular (π)"], horizontal=True)
+    
+# Batas bawah
+col1, col2 = st.columns(2)
+        with col1:
+            if limit_type == "Decimal":
+                a = st.number_input("Lower Limit", 0.0)
+            else:
+                s = st.text_input("Lower Limit", "0")
+                try:
+                    a = float(sp.sympify(s.replace("π", "pi")))
+                except:
+                    a = 0.0
+
+# Batas atas
+with col2:
+            if limit_type == "Decimal":
+                b = st.number_input("Upper Limit", 1.0)
+            else:
+                s2 = st.text_input("Upper Limit", "pi/2")
+                try:
+                    b = float(sp.sympify(s2.replace("π", "pi")))
+                except:
+                    b = np.pi/2
+
+# Jumlah pias
+n = st.number_input("Jumlah pembagian (n):", min_value=1, value=100)
+
