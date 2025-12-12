@@ -10,8 +10,7 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-
-/* Membuat tombol lebih rapi */
+# Style button
 .stButton>button {
     width: 100%;
     background-color: #4CAF50;
@@ -19,19 +18,19 @@ st.markdown("""
     font-weight: bold;
 }
 
-/* Warna teks pada input */
+# Warna teks input 
 .stTextInput>div>div>input {
     font-weight: bold;
     color: green;
 }
 
-/* Warna judul */
+# Warna judul
 h1, h2, h3 {
     text-align: center;
     color: #1565C0;
 }
 
-/* Kotak highlight sederhana */
+# Kotak highlight
 .highlight {
     background-color: #e8f5e9;
     padding: 1rem;
@@ -39,7 +38,7 @@ h1, h2, h3 {
     border-left: 5px solid #4CAF50;
 }
 
-/* Kotak hasil */
+# Kotak hasil 
 .result-box {
     background-color: #263238;
     color: white;
@@ -47,7 +46,25 @@ h1, h2, h3 {
     border-radius: 5px;
     border-left: 5px solid orange;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
+# Integrasi
+def try_integration(expr, x):
+    try:
+        hasil = sp.integrate(expr, x, meijerg=True, risch=True)
+        if hasil.has(sp.Integral):
+            expr_str = str(expr)
+            if "sin(x**2)" in expr_str:
+                return sp.sqrt(sp.pi/2) * (sp.fresnels(x) + sp.fresnelc(x))
+            if "exp(-x**2)" in expr_str:
+                return sp.sqrt(sp.pi) * sp.erf(x) / 2
+            # coba simplifikasi lain
+            hasil = sp.integrate(sp.simplify(expr), x)
+        return hasil
+    except:
+        # fallback sederhana
+        try:
+            return sp.integrate(expr, x, manual=True)
+        except:
+            return None
