@@ -68,3 +68,16 @@ def try_integration(expr, x):
             return sp.integrate(expr, x, manual=True)
         except:
             return None
+
+
+# Format PI
+def format_angle(value):
+    if abs(value) < 1e-10:
+        return "0"
+    k = value / np.pi
+    if abs(k - round(k)) < 1e-10:
+        if int(round(k)) == 1: return "π"
+        if int(round(k)) == -1: return "-π"
+        return f"{int(round(k))}π"
+    frac = sp.Rational(str(k)).limit_denominator(12)
+    return f"{frac.numerator}π/{frac.denominator}"
