@@ -129,24 +129,42 @@ if hitung:
     # ======================================================
     #                 OUTPUT HASIL
     # ======================================================
-    st.subheader("📌 Hasil Perhitungan")
+st.subheader("📌 Hasil Perhitungan")
 
-    st.success(
-        f"Integral umum (tak tentu):<br>"
-        f"<b>∫ f(x) dx = {sp.latex(indefinite)}</b>",
-        unsafe_allow_html=True
-    )
+# Integral Tak Tentu
+st.markdown(
+    f"""
+    <div class='result-box'>
+        <b>Integral umum (tak tentu):</b><br>
+        ∫ f(x) dx = {sp.latex(indefinite)}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-    st.success(
-        f"Integral tentu simbolik:<br>"
-        f"<b>≈ {float(definite)}</b>",
-        unsafe_allow_html=True
-    )
+# Integral Tentu
+st.markdown(
+    f"""
+    <div class='result-box'>
+        <b>Integral tentu simbolik:</b><br>
+        ≈ {float(definite)}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-    st.info(
-        f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}):<br>"
-        f"<b>≈ {midpoint_result}</b>",
-        unsafe_allow_html=True
-    )
+# Midpoint Rule
+st.markdown(
+    f"""
+    <div class='highlight'>
+        <b>Hasil Metode Pias Titik Tengah</b><br>
+        n = {n_midpoint}<br>
+        ≈ {midpoint_result}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-    st.plotly_chart(grafik)
+# Grafik
+st.plotly_chart(grafik)
+
