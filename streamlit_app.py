@@ -21,8 +21,7 @@ st.session_state.dark_mode = dark_switch
 
 dark_mode = st.sidebar.toggle("Dark Mode", False)
 
-if dark_mode:
-    st.markdown("""
+dark_css = """
     <style>
         /* Background halaman */
         .main {
@@ -86,8 +85,7 @@ if dark_mode:
     </style>
     """, unsafe_allow_html=True)
 
-else:
-    st.markdown("""
+light_css = """
     <style>
         /* Background halaman */
         .main {
