@@ -167,7 +167,7 @@ pin_css = """
         z-index: 100 !important;
     }
     [data-testid="stAppViewContainer"] {
-        margin-left: 10rem !important;
+        margin-left: 16rem !important;
     }
     [data-testid="collapsedControl"] {
         display: none !important;
