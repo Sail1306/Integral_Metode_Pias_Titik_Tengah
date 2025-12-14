@@ -227,7 +227,7 @@ if st.button("Hitung Integral"):
         # symbolic integration
         symbolic_result = try_integration(expr, x)
         if symbolic_result is not None:
-            st.success(f"Hasil integral simbolik:  
+            st.success("Hasil integral simbolik:  
 **∫ f(x) dx = {sp.simplify(symbolic_result)}**")
         else:
             st.warning("Integral simbolik tidak dapat diselesaikan oleh sistem.")
