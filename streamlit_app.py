@@ -21,11 +21,11 @@ st.session_state.dark_mode = dark_switch
 dark_css = """
     <style>
     
-     /* WARNA DEFAULT PAGE UTAMA */
-    .main, [data-testid="stAppViewContainer"] {
-        background-color: #0C132B !important;
-        color: #0C132B !important;
-    }
+     /* Page utama */
+        .main, [data-testid="stAppViewContainer"] {
+            background-color: #F2F5FF !important;  /* biru white-ish */
+            color: #0A1A40 !important;             /* teks biru navy */
+        }
 
     .main * {
         color: #E8F0FF !important;
@@ -94,9 +94,7 @@ dark_css = """
 
 light_css = """
     <style>
-        /* ================================
-           PAGE UTAMA - WARNA SENADA SIDEBAR
-        ===================================*/
+        /* Page utama */
         .main, [data-testid="stAppViewContainer"] {
             background-color: #F2F5FF !important;  /* biru white-ish */
             color: #0A1A40 !important;             /* teks biru navy */
@@ -109,7 +107,7 @@ light_css = """
 
         /* Sidebar */
         section[data-testid="stSidebar"] {
-            background-color: #E9EEFF !important;   /* warna sidebar */
+            background-color: #F2F5FF !important;   /* warna sidebar */
             border-right: 2px solid #1E3A8A !important;
         }
 
