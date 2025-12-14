@@ -188,8 +188,7 @@ if st.button("Hitung Integral"):
         # MIDPOINT result
         midpoint_result = midpoint_rule(f_lambdified, a_val, b_val, n_midpoint)
         if midpoint_result is not None:
-            st.info(f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}):  
-**≈ {midpoint_result}**")
+            st.info(f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}): ≈ {midpoint_result}")
         else:
             st.error("Perhitungan titik tengah gagal.")
 
