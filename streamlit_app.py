@@ -133,14 +133,17 @@ st.subheader("📌 Hasil Perhitungan")
 
 # Integral Tak Tentu
 st.markdown(
-    f"""
+    """
     <div class='result-box'>
-        <b>Integral umum (tak tentu):</b><br>
-        ∫ f(x) dx = {sp.latex(indefinite)}
+        <b>Integral umum (tak tentu):</b>
     </div>
     """,
     unsafe_allow_html=True
 )
+
+# Rumus LaTeX (MathJax)
+st.latex(r"\int f(x)\,dx = " + sp.latex(indefinite) + " + C")
+
 
 # Integral Tentu
 st.markdown(
