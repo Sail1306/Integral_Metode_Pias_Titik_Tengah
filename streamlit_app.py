@@ -32,67 +32,96 @@ h1, h2, h3 { color: #1565C0; }
 dark_css = """
 <style>
 
-body { background-color: #0e1117; color: #e3f2fd; }
-.stApp { background-color: #0e1117; }
+body { 
+    background: linear-gradient(180deg, #0d1117, #0b0f16);
+    color: #e3f2fd; 
+}
 
-/* Header warna biru */
-h1, h2, h3 { color: #64b5f6; }
+.stApp { 
+    background: linear-gradient(180deg, #0d1117, #0b0f16);
+}
 
-/* Tombol */
+/* Header biru glossy */
+h1, h2, h3 { 
+    color: #7cc4ff; 
+    text-shadow: 0px 0px 8px rgba(88, 176, 255, 0.5);
+}
+
+/* Tombol biru neon glossy */
 .stButton>button { 
-    background-color: #1e88e5; 
-    color: white; 
-    width: 100%; 
-    border-radius: 6px;
+    width: 100%;
+    background: linear-gradient(90deg, #1e88e5, #42a5f5);
+    color: white;
+    border-radius: 8px;
     border: 1px solid #90caf9;
+    box-shadow: 0px 0px 10px rgba(33, 150, 243, 0.5);
+    transition: 0.2s;
 }
 
-/* Text input */
+.stButton>button:hover {
+    background: linear-gradient(90deg, #2196f3, #64b5f6);
+    box-shadow: 0px 0px 14px rgba(100, 181, 246, 0.7);
+}
+
+/* Input glossy */
 .stTextInput>div>div>input {
-    background-color: #1b1f27;
-    color: #bbdefb;     /* biru muda */
+    background: #121926;
+    color: #bbdefb;
     border: 1px solid #64b5f6;
+    border-radius: 6px;
+    padding: 8px;
+    box-shadow: inset 0px 0px 6px rgba(100, 181, 246, 0.2);
 }
 
-/* Kotak highlight */
+/* Kotak highlight neon */
 .highlight { 
-    background-color: #102a43;
+    background: #11263b;
     border-left: 5px solid #4FC3F7;
     color: #E1F5FE;
+    box-shadow: 0px 0px 10px rgba(79, 195, 247, 0.3);
 }
 
-/* Kotak hasil utama */
+/* Kotak hasil utama glossy */
 .result-box { 
-    background-color: #112233;
-    color: #FFECB3; 
+    background: #162032;
+    color: #FFECB3;
     border-left: 5px solid #FFB74D;
+    box-shadow: 0px 0px 10px rgba(255, 183, 77, 0.3);
+    padding: 1rem;
+    border-radius: 6px;
 }
 
 /* Function guide */
 .function-guide { 
-    background-color: #0d1824;
-    color: #4FC3F7;
+    background: #0d1824;
+    color: #90caf9;
+    border-left: 4px solid #64b5f6;
+    box-shadow: 0px 0px 8px rgba(100, 181, 246, 0.3);
 }
 
 /* Angular guide */
 .angular-guide { 
-    background-color: #1a2235;
+    background: #1a2235;
     border-left: 4px solid #82B1FF;
     color: #E3F2FD;
+    box-shadow: 0px 0px 10px rgba(130, 177, 255, 0.3);
 }
 
-/* Code text */
+/* Code box */
 .code-text { 
-    background-color: #1e1e1e;
+    background: #1e1e1e;
     color: #81D4FA;
+    border-radius: 4px;
+    padding: 2px 4px;
+    box-shadow: inset 0px 0px 4px rgba(129, 212, 250, 0.3);
 }
 
-/* Sidebar */
+/* Sidebar glossy */
 .sidebar .sidebar-content { 
-    background-color: #0b0f16;
+    background: linear-gradient(180deg, #0b0f16, #101827);
     color: #e3f2fd;
+    border-right: 1px solid #263238;
 }
-
 </style>
 """
 
