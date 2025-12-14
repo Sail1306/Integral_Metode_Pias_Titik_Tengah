@@ -94,19 +94,25 @@ dark_css = """
 
 light_css = """
     <style>
-        /* Background halaman */
-        .main {
-            background-color: #E9EEFF !important;
-            color: #E9EEFF !important;
+        /* ================================
+           PAGE UTAMA - WARNA SENADA SIDEBAR
+        ===================================*/
+        .main, [data-testid="stAppViewContainer"] {
+            background-color: #F2F5FF !important;  /* biru white-ish */
+            color: #0A1A40 !important;             /* teks biru navy */
+        }
+
+        /* Semua teks dalam page */
+        .main * {
+            color: #0A1A40 !important;
         }
 
         /* Sidebar */
         section[data-testid="stSidebar"] {
-            background-color: #E9EEFF !important;
+            background-color: #E9EEFF !important;   /* warna sidebar */
             border-right: 2px solid #1E3A8A !important;
         }
 
-        /* Teks sidebar */
         section[data-testid="stSidebar"] * {
             color: #0A1A40 !important;
         }
@@ -116,19 +122,19 @@ light_css = """
             color: #1E3A8A !important;
         }
 
-        /* Kotak input */
+        /* Input box */
         .stTextInput>div>div>input,
         .stNumberInput input,
         .stTextArea textarea {
-            background-color: white !important;
-            color: black !important;
+            background-color: #ffffff !important;
+            color: #0A1A40 !important;
             border: 1px solid #1E3A8A !important;
         }
 
         /* Selectbox */
         .stSelectbox div[data-baseweb="select"] > div {
             background-color: white !important;
-            color: black !important;
+            color: #0A1A40 !important;
             border: 1px solid #1E3A8A !important;
         }
 
@@ -145,7 +151,7 @@ light_css = """
 
         /* Kotak hasil */
         .result-box {
-            background-color: #F0F4FF !important;
+            background-color: #E9EEFF !important;
             color: #0A1A40 !important;
             border-left: 4px solid #1E3A8A !important;
             padding: 12px;
@@ -153,7 +159,8 @@ light_css = """
             margin-top: 15px;
         }
     </style>
-    """
+"""
+
 
 css_theme = dark_css if st.session_state.dark_mode else light_css
 st.markdown(css_theme, unsafe_allow_html=True)
