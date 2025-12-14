@@ -150,8 +150,11 @@ else:
     </style>
     """, unsafe_allow_html=True)
 
+if st.session_state.dark_mode:
+    css_theme = f"<style>{dark_css}</style>"
+else:
+    css_theme = f"<style>{light_css}</style>"
 
-css_theme = dark_css if st.session_state.dark_mode else light_css
 st.markdown(css_theme, unsafe_allow_html=True)
 
 # ======================================================
