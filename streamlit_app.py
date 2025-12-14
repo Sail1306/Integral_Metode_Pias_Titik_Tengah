@@ -163,7 +163,8 @@ else:
     """, unsafe_allow_html=True)
 
 
-st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
+css_theme = dark_css if st.session_state.dark_mode else light_css
+st.markdown(css_theme, unsafe_allow_html=True)
 
 # ======================================================
 #                         TITLE
