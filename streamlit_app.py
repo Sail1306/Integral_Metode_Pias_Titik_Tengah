@@ -153,13 +153,13 @@ with limit_col2:
                     upper_limit = np.pi / 2
 
 # Jumlah pias
-        n = st.number_input(
-            "Jumlah Pembagian (n):",
-            min_value=1,
-            value=100,
-            step=1,
-            help="Semakin besar n, semakin akurat (tapi lebih lama komputasinya)."
-        )
+n = st.number_input(
+    "Jumlah Pembagian (n):",
+    min_value=1,
+    value=100,
+    step=1,
+    help="Semakin besar n, semakin akurat (tapi lebih lama komputasinya)."
+)
 
 # Guide
  with guide_col:
