@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import plotly.graph_objects as go
 
 # -------------------------------------------------------------------
 # PART 1 — CSS & UI (DARI ANDA, TIDAK ADA YANG DIUBAH)
