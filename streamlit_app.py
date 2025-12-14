@@ -24,7 +24,7 @@ dark_css = """
      /* WARNA DEFAULT PAGE UTAMA */
     .main, [data-testid="stAppViewContainer"] {
         background-color: #0C132B !important;
-        color: #E8F0FF !important;
+        color: #0C132B !important;
     }
 
     .main * {
