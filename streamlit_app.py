@@ -1,5 +1,11 @@
 import streamlit as st
 import numpy as np
+import sympy as sp
+from scipy import special
+
+from PIL import Image              # untuk icon
+import plotly.graph_objects as go  # untuk plotting
+from plotly.subplots import make_subplots
 
 # -------------------------------------------------------------------
 # PART 1 — CSS & UI (DARI ANDA, TIDAK ADA YANG DIUBAH)
