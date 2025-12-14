@@ -31,17 +31,68 @@ h1, h2, h3 { color: #1565C0; }
 
 dark_css = """
 <style>
-body { background-color: #0e1117; color: #ffffff; }
+
+body { background-color: #0e1117; color: #e3f2fd; }
 .stApp { background-color: #0e1117; }
-h1, h2, h3 { color: #90caf9; }
-.stButton>button { background-color: #1f6feb; color: white; width: 100%; }
-.stTextInput>div>div>input { background-color: #222; color: #4CAF50; }
-.highlight { background-color: #1b2b1b; border-left: 5px solid #4CAF50; color: #a5d6a7; }
-.result-box { background-color: #1e1e1e; color: #ffcc80; border-left: 5px solid #ffa726; }
-.function-guide { background-color: #000; color: #4CAF50; }
-.angular-guide { background-color: #2c2c54; border-left: 4px solid #7d5fff; }
-.code-text { background-color: #333; color: #4CAF50; }
-.sidebar .sidebar-content { background-color: #111; }
+
+/* Header warna biru */
+h1, h2, h3 { color: #64b5f6; }
+
+/* Tombol */
+.stButton>button { 
+    background-color: #1e88e5; 
+    color: white; 
+    width: 100%; 
+    border-radius: 6px;
+    border: 1px solid #90caf9;
+}
+
+/* Text input */
+.stTextInput>div>div>input {
+    background-color: #1b1f27;
+    color: #bbdefb;     /* biru muda */
+    border: 1px solid #64b5f6;
+}
+
+/* Kotak highlight */
+.highlight { 
+    background-color: #102a43;
+    border-left: 5px solid #4FC3F7;
+    color: #E1F5FE;
+}
+
+/* Kotak hasil utama */
+.result-box { 
+    background-color: #112233;
+    color: #FFECB3; 
+    border-left: 5px solid #FFB74D;
+}
+
+/* Function guide */
+.function-guide { 
+    background-color: #0d1824;
+    color: #4FC3F7;
+}
+
+/* Angular guide */
+.angular-guide { 
+    background-color: #1a2235;
+    border-left: 4px solid #82B1FF;
+    color: #E3F2FD;
+}
+
+/* Code text */
+.code-text { 
+    background-color: #1e1e1e;
+    color: #81D4FA;
+}
+
+/* Sidebar */
+.sidebar .sidebar-content { 
+    background-color: #0b0f16;
+    color: #e3f2fd;
+}
+
 </style>
 """
 
