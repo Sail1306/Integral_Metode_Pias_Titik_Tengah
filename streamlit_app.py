@@ -83,7 +83,7 @@ dark_css = """
             margin-top: 15px;
         }
     </style>
-    """, unsafe_allow_html=True)
+    """
 
 light_css = """
     <style>
@@ -146,7 +146,7 @@ light_css = """
             margin-top: 15px;
         }
     </style>
-    """, unsafe_allow_html=True)
+    """
 
 if st.session_state.dark_mode:
     css_theme = f"<style>{dark_css}</style>"
