@@ -142,8 +142,7 @@ st.markdown(
 )
 
 # Rumus LaTeX (MathJax)
-st.latex(r"\int f(x)\,dx = " + sp.latex(indefinite) + " + C")
-
+st.latex(fr"\int f(x)\,dx = {sp.latex(indefinite)} + C")
 
 # Integral Tentu
 st.markdown(
