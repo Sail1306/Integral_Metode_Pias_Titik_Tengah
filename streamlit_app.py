@@ -1,224 +1,160 @@
 import streamlit as st
 import numpy as np
 import sympy as sp
+from PIL import Image
 from scipy import special
-
-from PIL import Image              # untuk icon
-import plotly.graph_objects as go  # untuk plotting
 from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
+# ======================================================
+#                 DARK MODE STATE
+# ======================================================
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+
+st.sidebar.title("⚙️ Pengaturan")
+dark_switch = st.sidebar.checkbox("🌙 Mode Gelap", value=st.session_state.dark_mode)
+st.session_state.dark_mode = dark_switch
 
 
-try:
-    icon = Image.open("assets/icon.png")
-except:
-    icon = "📈"
-
-st.set_page_config(
-    page_title="Integral Solution (Pias Titik Tengah)",
-    page_icon=icon,
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
-
-# -------------------------------------------------------------------
-# PART 1 — CSS & UI (DARI ANDA, TIDAK ADA YANG DIUBAH)
-# -------------------------------------------------------------------
-st.markdown("""
+# ======================================================
+#                         CSS
+# ======================================================
+light_css = """
 <style>
-body { overflow-x: hidden !important; }
-
-.stButton>button { 
-    width: 100%; 
-    background-color: #4CAF50; 
-    color: white; 
-    height: 3em; 
-    font-weight: bold; 
-    border-radius: 5px; 
-}
-
-.stTextInput>div>div>input { 
-    color: #4CAF50; 
-    font-weight: bold; 
-}
-
-h1, h2, h3 { 
-    color: #1565C0; 
-    text-align: center; 
-}
-
-.highlight { 
-    background-color: #e8f5e9; 
-    padding: 1.5rem; 
-    border-radius: 0.5rem; 
-    margin: 1rem 0; 
-    border-left: 5px solid #4CAF50; 
-    color: #2E7D32; 
-    font-size: 1.1em; 
-    font-weight: 500; 
-}
-
-.result-box { 
-    background-color: #263238; 
-    color: #ECEFF1; 
-    padding: 1.5rem; 
-    border-radius: 0.5rem; 
-    border-left: 5px solid #FF9800; 
-    margin: 1rem 0; 
-    font-size: 1.1em; 
-    font-weight: bold; 
-}
-
-.function-guide { 
-    background-color: #1a1a1a; 
-    color: #ffffff; 
-    padding: 1.5rem; 
-    border-radius: 0.5rem; 
-    border-left: 5px solid #4CAF50; 
-    margin: 1rem 0; 
-}
-
-.angular-guide { 
-    background-color: #e8eaf6; 
-    padding: 1rem; 
-    border-radius: 4px; 
-    border-left: 4px solid #3f51b5; 
-    margin: 0.5rem 0; 
-    width: 100%; 
-    box-sizing: border-box; 
-}
-
-.angular-button { 
-    width: 100%; 
-    margin: 0.2rem 0; 
-}
-
-.code-text { 
-    font-family: monospace; 
-    background-color: #333333; 
-    padding: 0.2rem 0.4rem; 
-    border-radius: 3px; 
-    color: #4CAF50; 
-}
+body { background-color: white; color: black; }
+.stButton>button { width: 100%; background-color: #4CAF50; color: white; }
+h1, h2, h3 { color: #1565C0; }
+.highlight { background-color: #e8f5e9; color: #2E7D32; }
+.result-box { background-color: #263238; color: #ECEFF1; border-left: 5px solid #FF9800; }
+.function-guide { background-color: #1a1a1a; color: #fff; }
+.angular-guide { background-color: #e8eaf6; border-left: 4px solid #3f51b5; }
 </style>
-""", unsafe_allow_html=True)
+"""
+
+dark_css = """
+<style>
+body { background-color: #0e1117; color: #ffffff; }
+.stApp { background-color: #0e1117; }
+h1, h2, h3 { color: #90caf9; }
+.stButton>button { background-color: #1f6feb; color: white; width: 100%; }
+.stTextInput>div>div>input { background-color: #222; color: #4CAF50; }
+.highlight { background-color: #1b2b1b; border-left: 5px solid #4CAF50; color: #a5d6a7; }
+.result-box { background-color: #1e1e1e; color: #ffcc80; border-left: 5px solid #ffa726; }
+.function-guide { background-color: #000; color: #4CAF50; }
+.angular-guide { background-color: #2c2c54; border-left: 4px solid #7d5fff; }
+.code-text { background-color: #333; color: #4CAF50; }
+.sidebar .sidebar-content { background-color: #111; }
+</style>
+"""
+
+# Terapkan CSS
+st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
 
 
-# -------------------------------------------------------------------
-# PART 2 — FUNGSI PENDUKUNG
-# -------------------------------------------------------------------
-
-x = sp.Symbol("x")
-
-# symbolic integration with fail-safety
-def try_integration(expr, var):
-    try:
-        return sp.integrate(expr, var)
-    except:
-        return None
-
-# plot generator
-def create_plot(xs, ys, expr_str, a, b):
-    try:
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=xs, y=ys, mode='lines', name="f(x)"))
-        fig.update_layout(
-            title=f"Grafik f(x) = {expr_str}",
-            xaxis_title="x",
-            yaxis_title="f(x)",
-            template="plotly_dark"
-        )
-        return fig
-    except:
-        return None
+# ======================================================
+#                         TITLE
+# ======================================================
+st.title("🔢 Kalkulator Integral Lengkap – Simbolik, Numerik & Grafik")
 
 
-# -------------------------------------------------------------------
-# PART 3 — MAIN EXECUTION + METODE PIAS TITIK TENGAH
-# -------------------------------------------------------------------
+# ======================================================
+#                    INPUT PENGGUNA
+# ======================================================
+st.subheader("Masukkan Fungsi dan Batas Integral")
 
-st.title("🔢 Kalkulator Integral (Simbolik & Numerik + Pias Titik Tengah)")
+fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
+a = st.text_input("Batas bawah (a):", "0")
+b = st.text_input("Batas atas (b):", "3")
 
-# Input user
-expr_str = st.text_input("Masukkan fungsi f(x):", "sin(x)*cos(x)")
-lower_limit = st.text_input("Batas bawah integral:", "0")
-upper_limit = st.text_input("Batas atas integral:", "pi/2")
-n_midpoint = st.number_input("Jumlah pias (untuk metode titik tengah):", min_value=1, value=10)
-
-# Convert input numeric
+# Konversi batas ke float
 try:
-    a_val = float(sp.N(lower_limit))
-    b_val = float(sp.N(upper_limit))
+    a_val = float(a)
+    b_val = float(b)
 except:
-    a_val, b_val = None, None
-    st.error("Batas integral tidak valid.")
+    st.error("❌ Batas integral harus berupa angka.")
+    st.stop()
 
 
-# Parsing fungsi
+# ======================================================
+#                  KONVERSI FUNGSI
+# ======================================================
+x = sp.symbols("x")
 try:
-    expr = sp.sympify(expr_str)
-    f_lambdified = sp.lambdify(x, expr, modules=["numpy"])
+    f_sympy = sp.sympify(fungsi_str)
 except:
-    expr = None
-    st.error("Fungsi tidak valid.")
+    st.error("❌ Fungsi tidak valid. Periksa kembali penulisan Anda.")
+    st.stop()
+
+f_numerik = sp.lambdify(x, f_sympy, "numpy")
 
 
-# MIDPOINT RULE
+# ======================================================
+#                MIDPOINT RULE (TITIK TENGAH)
+# ======================================================
 def midpoint_rule(func, a, b, n):
-    try:
-        h = (b - a) / n
-        total = 0
-        for i in range(n):
-            mid = a + (i + 0.5) * h
-            total += func(mid)
-        return total * h
-    except:
-        return None
+    h = (b - a) / n
+    total = 0
+
+    for i in range(n):
+        mid = a + h * (i + 0.5)
+        total += func(mid)
+
+    return total * h
 
 
-# --------------------------
-# BUTTON – EXECUTION
-# --------------------------
-if st.button("Hitung Integral"):
+n_midpoint = st.number_input("Jumlah pembagian untuk metode titik tengah:", 1, 10000, 10)
+midpoint_result = midpoint_rule(f_numerik, a_val, b_val, n_midpoint)
 
-    if expr is None or a_val is None or b_val is None:
-        st.error("Tidak dapat menghitung. Periksa input Anda.")
-    else:
-        st.subheader("📘 Hasil Perhitungan:")
 
-        # Symbolic
-        symbolic_result = try_integration(expr, x)
-        if symbolic_result is not None:
-            sst.success(
-    f"Integral umum: ∫ f(x) dx = {sp.simplify(symbolic_result)}"
+# ======================================================
+#                INTEGRAL SIMBOLIK
+# ======================================================
+indefinite = sp.integrate(f_sympy, x)
+definite = sp.integrate(f_sympy, (x, a_val, b_val))
+
+
+# ======================================================
+#                    PLOT GRAFIK
+# ======================================================
+xx = np.linspace(a_val, b_val, 300)
+yy = f_numerik(xx)
+
+grafik = make_subplots()
+grafik.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
+grafik.update_layout(
+    title="Grafik Fungsi",
+    xaxis_title="x",
+    yaxis_title="f(x)",
+    template="plotly_dark" if st.session_state.dark_mode else "plotly_white"
 )
-        else:
-            st.warning("Integral simbolik tidak dapat diselesaikan sistem.")
 
-        # Numerical values
-        try:
-            xs = np.linspace(a_val, b_val, 2000)
-            ys = [f_lambdified(xx) for xx in xs]
-        except:
-            xs, ys = None, None
-            st.error("Gagal menghitung nilai fungsi.")
 
-        # MIDPOINT result
-        midpoint_result = midpoint_rule(f_lambdified, a_val, b_val, n_midpoint)
-        if midpoint_result is not None:
-            st.info(f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}): ≈ {midpoint_result}")
-        else:
-            st.error("Perhitungan titik tengah gagal.")
+# ======================================================
+#                   TAMPILKAN HASIL
+# ======================================================
+st.subheader("📌 Hasil Perhitungan")
 
-        # Symbolic definite
-        if symbolic_result is not None:
-            try:
-                definite = symbolic_result.subs(x, b_val) - symbolic_result.subs(x, a_val)
-                sst.success(f"Integral tentu simbolik: ≈ {float(definite)}")
-            except:
-                st.warning("Integral tentu simbolik tidak dapat dievaluasi.")
+# Integral tak tentu
+st.success(
+    f"Integral umum (tak tentu):<br>"
+    f"<b>∫ f(x) dx = {sp.latex(indefinite)}</b>",
+    unsafe_allow_html=True
+)
 
-        # Plot
-        if xs is not None:
-            fig = create_plot(xs, ys, expr_str, a_val, b_val)
-            if fig:
-                st.plotly_chart(fig, use_container_width=True)
+# Integral tentu
+st.success(
+    f"Integral tentu simbolik:<br>"
+    f"<b>≈ {float(definite)}</b>",
+    unsafe_allow_html=True
+)
+
+# Midpoint rule
+st.info(
+    f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}):<br>"
+    f"<b>≈ {midpoint_result}</b>",
+    unsafe_allow_html=True
+)
+
+# Grafik
+st.plotly_chart(grafik)
