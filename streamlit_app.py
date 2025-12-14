@@ -19,8 +19,6 @@ st.session_state.dark_mode = dark_switch
 # ======================================================
 # ------------------ MODE TERANG & GELAP (SIDEBAR + PAGE) ------------------
 
-dark_mode = st.sidebar.toggle("Dark Mode", False)
-
 dark_css = """
     <style>
         /* Background halaman */
