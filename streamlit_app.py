@@ -194,50 +194,92 @@ with guide_col:
             """, unsafe_allow_html=True)
 
 # Button hitung
-colA, colB, colC = st.columns([1, 2, 1])
-    hitung = colB.button("🔢 Calculate Integral")
+col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        calculate_button = st.button('🔢 Calculate Integral', type='primary')
 
-    if not hitung:
-        return
+    if calculate_button:
+        # Basic validation
+        if lower_limit >= upper_limit:
+            st.error("⚠️ Upper limit must be greater than lower limit")
+            return
 
-    if a >= b:
-        st.error("Upper limit harus lebih besar dari lower limit")
-        return
+        # parse expression
+        x_sym = sp.symbols('x')
+        try:
+            expr = sp.sympify(expr_str)
+        except Exception:
+            st.error("⚠️ Invalid function syntax. Use valid SymPy/Python expression (e.g., x**2, sin(x)).")
+            return
 
-x = symbols('x')
-try:
-    expr = sympify(expr_str)
-except:
-    st.error("Fungsi tidak valid!")
-    return
+        # create numeric function using lambdify (works with numpy)
+        try:
+            f_num = sp.lambdify(x_sym, expr, modules=['numpy', {
+                'sin': np.sin, 'cos': np.cos, 'tan': np.tan,
+                'exp': np.exp, 'log': np.log, 'sqrt': np.sqrt,
+                'pi': np.pi, 'erf': special.erf, 'fresnel': special.fresnel, 'fresnels': special.fresnel
+            }])
+        except Exception:
+            st.error("⚠️ Gagal membuat fungsi numerik. Periksa ekspresi.")
+            return
 
-try:
-        f_num = sp.lambdify(x, expr, 'numpy')
-    except:
-        st.error("Fungsi tidak bisa diubah menjadi bentuk numerik")
-        return
+        # create x values for plot
+        plot_margin = (upper_limit - lower_limit) * 0.2
+        x_vals = np.linspace(lower_limit - plot_margin, upper_limit + plot_margin, 1000)
+        try:
+            y_vals = f_num(x_vals)
+            if isinstance(y_vals, tuple):
+                y_vals = y_vals[0]
+            y_vals = np.asarray(y_vals, dtype=np.float64)
+            if np.any(~np.isfinite(y_vals)):
+                st.error("⚠️ Fungsi menghasilkan nilai tak hingga atau NaN dalam rentang plotting.")
+                return
+        except Exception:
+            st.error("⚠️ Error menghitung nilai fungsi untuk plotting. Periksa sintaks fungsi.")
+            return
 
-xs = np.linspace(a - (b - a)*0.2, b + (b - a)*0.2, 600)
-    try:
-        ys = f_num(xs)
-    except:
-        st.error("Gagal menghitung grafik fungsi")
-        return
+        # Attempt symbolic indefinite integral and display
+        indefinite_result = try_integration(expr, x_sym)
+        if indefinite_result is not None:
+            latex_integral = sp.latex(indefinite_result)
+            st.markdown(f"### Indefinite Integral:\n$$ \\int {sp.latex(expr)} \\,dx = {latex_integral} + C $$")
+        else:
+            st.warning("⚠️ Tidak ditemukan integral simbolik yang sederhana (function mungkin terlalu kompleks).")
 
-fig = create_plot(xs, ys, expr_str, a, b)
-    if fig:
-        st.plotly_chart(fig, use_container_width=True)
+        # --- NUMERIC: Midpoint Rule ---
+        try:
+            # ensure f_num works for scalar input (it usually does)
+            def f_scalar(t):
+                val = f_num(t)
+                # if lambdified returns array for scalar, extract
+                if isinstance(val, (list, tuple, np.ndarray)):
+                    return float(np.array(val).astype(float).item())
+                return float(val)
+            integral_result = midpoint_rule(f_scalar, lower_limit, upper_limit, int(n))
+        except Exception as e:
+            st.error("⚠️ Error saat menghitung integral numerik (midpoint). Periksa fungsi atau kurangi n.")
+            return
 
-    sim = try_integration(expr, x)
-    if sim is not None:
-        st.markdown(f"### Indefinite Integral\n$$ \\int {sp.latex(expr)} dx = {sp.latex(sim)} + C $$")
-    else:
-        st.warning("Integral simbolik tidak ditemukan")
+        # create and show plot
+        fig = create_plot(x_vals, y_vals, expr_str, lower_limit, upper_limit)
+        if fig is not None:
+            st.plotly_chart(fig, use_container_width=True)
 
-    def f_scalar(t):
-        val = f_num(t)
-        if isinstance(val, (np.ndarray, list, tuple)):
-            return float(np.array(val).flatten()[0])
-        return float(val)
+        # Display results
+        limit_display_lower = format_angle(lower_limit) if limit_type == "Angular (π)" else f"{lower_limit:.4f}"
+        limit_display_upper = format_angle(upper_limit) if limit_type == "Angular (π)" else f"{upper_limit:.4f}"
 
-    hasil = midpoint_rule(f_scalar, a, b, int(n))
+        st.markdown(f"""
+        <div class='result-box'>
+        Integration Results:
+
+        - 📊 Function: {expr_str}
+        - 📍 Limits: [{limit_display_lower}, {limit_display_upper}]
+        - 🔢 Pembagian n: {int(n)}
+        - ✨ Definite Integral (Midpoint rule): `{integral_result:.6f}`
+        </div>
+        """, unsafe_allow_html=True)
+
+if __name__ == '__main__':
+    main()
+
