@@ -162,3 +162,52 @@ n = st.number_input("Jumlah pembagian (n):", min_value=1, value=100)
         • sin(x**2)  
         </div>
         """, unsafe_allow_html=True)
+
+# Button hitung
+colA, colB, colC = st.columns([1, 2, 1])
+    hitung = colB.button("🔢 Calculate Integral")
+
+    if not hitung:
+        return
+
+    if a >= b:
+        st.error("Upper limit harus lebih besar dari lower limit")
+        return
+
+x = symbols('x')
+try:
+    expr = sympify(expr_str)
+except:
+    st.error("Fungsi tidak valid!")
+    return
+
+try:
+        f_num = sp.lambdify(x, expr, 'numpy')
+    except:
+        st.error("Fungsi tidak bisa diubah menjadi bentuk numerik")
+        return
+
+xs = np.linspace(a - (b - a)*0.2, b + (b - a)*0.2, 600)
+    try:
+        ys = f_num(xs)
+    except:
+        st.error("Gagal menghitung grafik fungsi")
+        return
+
+fig = create_plot(xs, ys, expr_str, a, b)
+    if fig:
+        st.plotly_chart(fig, use_container_width=True)
+
+    sim = try_integration(expr, x)
+    if sim is not None:
+        st.markdown(f"### Indefinite Integral\n$$ \\int {sp.latex(expr)} dx = {sp.latex(sim)} + C $$")
+    else:
+        st.warning("Integral simbolik tidak ditemukan")
+
+    def f_scalar(t):
+        val = f_num(t)
+        if isinstance(val, (np.ndarray, list, tuple)):
+            return float(np.array(val).flatten()[0])
+        return float(val)
+
+    hasil = midpoint_rule(f_scalar, a, b, int(n))
