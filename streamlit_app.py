@@ -38,7 +38,7 @@ if dark_mode:
     <style>
         /* Background halaman */
         .main {
-            background-color: #0A0F1F !important;
+            background-color: 0C132B !important;
             color: #E8F0FF !important;
         }
 
