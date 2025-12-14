@@ -13,6 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+
 # --- custom styles ---
 st.markdown("""
     <style>
@@ -29,6 +30,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
 # --------------------------
 # Helper: Midpoint rule
 # --------------------------
@@ -40,6 +42,18 @@ def midpoint_rule(f, a, b, n):
         x_mid = a + h * (i + 0.5)
         y = f(x_mid)
         total += y
+    return total * h
+
+
+# --------------------------
+# NEW: Pias Titik Tengah
+# --------------------------
+def pias_titik_tengah(f, a, b, n):
+    h = (b - a) / n
+    total = 0.0
+    for i in range(n):
+        x_mid = a + (i + 0.5) * h
+        total += f(x_mid)
     return total * h
 
 # --------------------------
@@ -76,6 +90,7 @@ def try_integration(expr, x):
         except:
             return None
 
+
 def evaluate_special_function(expr_str, x_val):
     try:
         if 'sin(x**2)' in expr_str:
@@ -87,8 +102,8 @@ def evaluate_special_function(expr_str, x_val):
     except:
         return None
 
+
 def format_angle(value):
-    # Format value in terms of pi when appropriate
     if abs(value) < 1e-10:
         return "0"
     frac = value / np.pi
@@ -102,6 +117,7 @@ def format_angle(value):
         return f"π/{den}" if num > 0 else f"-π/{den}"
     return f"{num}π/{den}"
 
+
 # --------------------------
 # Plotting helper (uses plotly)
 # --------------------------
@@ -109,7 +125,9 @@ def create_plot(x_vals, y_vals, expr_str, lower_limit, upper_limit):
     try:
         y_vals = np.asarray(y_vals, dtype=np.float64)
         fig = make_subplots()
+
         mask = np.isfinite(y_vals)
+
         fig.add_trace(go.Scatter(
             x=x_vals[mask],
             y=y_vals[mask],
@@ -119,6 +137,7 @@ def create_plot(x_vals, y_vals, expr_str, lower_limit, upper_limit):
             hovertemplate="<b>x</b>: %{x:.4f}<br><b>f(x)</b>: %{y:.4f}",
             hoverlabel=dict(bgcolor="#1565C0", font=dict(size=12, color='white'))
         ))
+
         fill_mask = (x_vals >= lower_limit) & (x_vals <= upper_limit) & np.isfinite(y_vals)
         if np.any(fill_mask):
             fig.add_trace(go.Scatter(
@@ -130,220 +149,116 @@ def create_plot(x_vals, y_vals, expr_str, lower_limit, upper_limit):
                 fillcolor='rgba(0, 200, 83, 0.2)',
                 hoverinfo='skip'
             ))
-        fig.add_vline(x=lower_limit, line_width=2, line_dash="dash", line_color="red", annotation_text="Lower Limit", annotation_position="top left")
-        fig.add_vline(x=upper_limit, line_width=2, line_dash="dash", line_color="red", annotation_text="Upper Limit", annotation_position="top right")
-        vertical_line = {
-            "type": "line",
-            "xref": "x",
-            "yref": "paper",
-            "x0": (lower_limit + upper_limit) / 2,
-            "y0": 0,
-            "x1": (lower_limit + upper_limit) / 2,
-            "y1": 1,
-            "line": {"color": "blue", "width": 2, "dash": "dot"},
-        }
+
+        fig.add_vline(x=lower_limit, line_width=2, line_dash="dash", line_color="red")
+        fig.add_vline(x=upper_limit, line_width=2, line_dash="dash", line_color="red")
+
         fig.update_layout(
-            shapes=[vertical_line],
-            title=dict(text=f"Integration of f(x) = {expr_str}", font=dict(size=14, color='#1565C0'), x=0.5, xanchor='center'),
+            title=dict(text=f"Integration of f(x) = {expr_str}", font=dict(size=14, color='#1565C0'), x=0.5),
             xaxis_title="x",
             yaxis_title="f(x)",
             hovermode='closest',
             dragmode='pan',
             showlegend=True,
-            legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01, bgcolor='rgba(255,255,255,0.8)'),
             plot_bgcolor='white',
-            xaxis=dict(showgrid=True, gridcolor='rgba(128,128,128,0.2)', showline=True, linewidth=1, linecolor='rgba(128,128,128,0.8)'),
-            yaxis=dict(showgrid=True, gridcolor='rgba(128,128,128,0.2)', showline=True, linewidth=1, linecolor='rgba(128,128,128,0.8)')
         )
-        fig.update_traces(marker=dict(size=12), selector=dict(mode='markers+text'))
         return fig
+
     except Exception:
         st.error("Error creating plot: The function might be undefined in some regions")
         return None
 
 # --------------------------
-# MAIN APP
+# MAIN EXECUTION (UI + Logic)
 # --------------------------
-def main():
-    st.title('Kalkulator Solusi Integral')
-    st.title('Metode Pias Titik Tengah')
 
-    st.markdown("""
-    <div class='highlight'>
-    **Welcome to the Integration Calculator!** This tool computes **definite and indefinite** integrals easily.  
-    **Made by Saila** 🏆
-    </div>
-    """, unsafe_allow_html=True)
+st.title("🔢 Kalkulator Integral (Simbolik & Numerik + Pias Titik Tengah)")
 
-    # Inputs area
-    input_col, guide_col = st.columns([2, 1])
-    with input_col:
-        st.markdown("### 📝 Enter Your Function")
-        expr_str = st.text_input('Function f(x):', value='x**2', help="Use Python/SymPy syntax (e.g., x**2 for x²)")
+# Input user
+expr_str = st.text_input("Masukkan fungsi f(x):", "sin(x)*cos(x)")
+lower_limit = st.text_input("Batas bawah integral:", "0")
+upper_limit = st.text_input("Batas atas integral:", "pi/2")
+n_midpoint = st.number_input("Jumlah pias (untuk metode titik tengah):", min_value=1, value=10)
 
-        limit_type = st.radio("Limit Input Type:", ["Decimal", "Angular (π)"], horizontal=True)
 
-        limit_col1, limit_col2 = st.columns(2)
-        with limit_col1:
-            if limit_type == "Decimal":
-                lower_limit = st.number_input('Lower Limit:', value=0.0, step=0.1, format="%.4f")
-            else:
-                lower_limit_str = st.text_input('Lower Limit:', value="0", help="Enter as multiples of π (e.g., pi/2, -pi)")
-                try:
-                    expr_val = lower_limit_str.replace('π', 'pi')
-                    lower_limit = float(sp.sympify(expr_val).evalf())
-                except:
-                    st.error("Invalid input. Examples: pi/2, -pi, 1, 0.5")
-                    lower_limit = 0.0
+# Convert user inputs
+try:
+    a_val = float(sp.N(lower_limit))
+    b_val = float(sp.N(upper_limit))
+except:
+    a_val, b_val = None, None
+    st.error("Batas integral tidak valid.")
 
-        with limit_col2:
-            if limit_type == "Decimal":
-                upper_limit = st.number_input('Upper Limit:', value=1.0, step=0.1, format="%.4f")
-            else:
-                upper_limit_str = st.text_input('Upper Limit:', value="pi/2", help="Enter as multiples of π (e.g., pi/2, -pi)")
-                try:
-                    expr_val = upper_limit_str.replace('π', 'pi')
-                    upper_limit = float(sp.sympify(expr_val).evalf())
-                except:
-                    st.error("Invalid input. Examples: pi/2, -pi, 1, 0.5")
-                    upper_limit = np.pi / 2
 
-        # <-- NEW: jumlah pembagian n (placed with other inputs)
-        n = st.number_input(
-            "Jumlah Pembagian (n):",
-            min_value=1,
-            value=100,
-            step=1,
-            help="Semakin besar n, semakin akurat (tapi lebih lama komputasinya)."
-        )
+# Parse function
+try:
+    expr = sp.sympify(expr_str)
+    f_lambdified = sp.lambdify(x, expr, modules=["numpy", "scipy"])
+except:
+    expr = None
+    st.error("Fungsi tidak valid.")
 
-        # quick angular buttons (only affect upper_limit as convenience)
-        if limit_type == "Angular (π)":
-            st.markdown("<div class='angular-guide'>Common Angular Values:</div>", unsafe_allow_html=True)
-            button_cols = st.columns(4)
-            angular_values = [("π/6", np.pi/6), ("π/4", np.pi/4), ("π/3", np.pi/3), ("π/2", np.pi/2)]
-            for i, (label, val) in enumerate(angular_values):
-                with button_cols[i]:
-                    if st.button(label, key=f"ang_{i}", use_container_width=True):
-                        upper_limit = val
 
-    with guide_col:
-        st.markdown("""
-        <div class='function-guide' style='padding: 1rem; margin-bottom: 0.5rem;'>
-        <h3 style='margin-bottom: 0.5rem; font-size: 1.1em;'>💡 Quick Examples:</h3>
-        <ul style='list-style-type: none; padding-left: 0; margin-bottom: 0;'>
-            <li style='margin-bottom: 5px; font-size: 0.8em;'>📊 Basic <span class='code-text'>x**2</span></li>
-            <li style='margin-bottom: 5px; font-size: 0.8em;'>📐 Trigonometric <span class='code-text'>sin(x)</span></li>
-            <li style='margin-bottom: 5px; font-size: 0.8em;'>📈 Exponential <span class='code-text'>exp(-x)</span></li>
-            <li style='margin-bottom: 5px; font-size: 0.8em;'>🔄 Complex <span class='code-text'>sin(x**2)</span></li>
-        </ul>
-        </div>
-        """, unsafe_allow_html=True)
+# --------------------------
+# NUMERICAL MIDPOINT RULE
+# --------------------------
+def midpoint_rule(func, a, b, n):
+    try:
+        h = (b - a) / n
+        total = 0
+        for i in range(n):
+            mid = a + (i + 0.5) * h
+            total += func(mid)
+        return total * h
+    except:
+        return None
 
-        with st.expander("📚 Function Guide", expanded=False):
-            st.markdown("""
-            <div class='function-guide'>
-            <h3>🔢 Basic Operations</h3>
-            • Addition: <span class='code-text'>+</span> (x + 1)<br>
-            • Multiplication: <span class='code-text'>*</span> (2*x)<br>
-            • Power: <span class='code-text'>**</span> (x**2)<br>
-            • Division: <span class='code-text'>/</span> (x/2)<br>
-            <h3>🎯 Advanced Functions</h3>
-            • Trig: <span class='code-text'>sin(x)</span>, <span class='code-text'>cos(x)</span><br>
-            • Exp/Log: <span class='code-text'>exp(x)</span>, <span class='code-text'>log(x)</span><br>
-            <h3>🎲 Special</h3>
-            • Fresnel: <span class='code-text'>sin(x**2)</span><br>
-            • Error func: <span class='code-text'>exp(-x**2)</span><br>
-            <h3>Constants</h3> • π: <span class='code-text'>pi</span> • e: <span class='code-text'>E</span>
-            </div>
-            """, unsafe_allow_html=True)
 
-    # Calculate button (full-width center)
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        calculate_button = st.button('🔢 Calculate Integral', type='primary')
+# --------------------------
+# Execute when button clicked
+# --------------------------
+if st.button("Hitung Integral"):
 
-    if calculate_button:
-        # Basic validation
-        if lower_limit >= upper_limit:
-            st.error("⚠️ Upper limit must be greater than lower limit")
-            return
+    if expr is None or a_val is None or b_val is None:
+        st.error("Tidak dapat menghitung. Periksa input Anda.")
+    else:
+        st.subheader("📘 Hasil Perhitungan:")
 
-        # parse expression
-        x_sym = sp.symbols('x')
-        try:
-            expr = sp.sympify(expr_str)
-        except Exception:
-            st.error("⚠️ Invalid function syntax. Use valid SymPy/Python expression (e.g., x**2, sin(x)).")
-            return
-
-        # create numeric function using lambdify (works with numpy)
-        try:
-            f_num = sp.lambdify(x_sym, expr, modules=['numpy', {
-                'sin': np.sin, 'cos': np.cos, 'tan': np.tan,
-                'exp': np.exp, 'log': np.log, 'sqrt': np.sqrt,
-                'pi': np.pi, 'erf': special.erf, 'fresnel': special.fresnel, 'fresnels': special.fresnel
-            }])
-        except Exception:
-            st.error("⚠️ Gagal membuat fungsi numerik. Periksa ekspresi.")
-            return
-
-        # create x values for plot
-        plot_margin = (upper_limit - lower_limit) * 0.2
-        x_vals = np.linspace(lower_limit - plot_margin, upper_limit + plot_margin, 1000)
-        try:
-            y_vals = f_num(x_vals)
-            if isinstance(y_vals, tuple):
-                y_vals = y_vals[0]
-            y_vals = np.asarray(y_vals, dtype=np.float64)
-            if np.any(~np.isfinite(y_vals)):
-                st.error("⚠️ Fungsi menghasilkan nilai tak hingga atau NaN dalam rentang plotting.")
-                return
-        except Exception:
-            st.error("⚠️ Error menghitung nilai fungsi untuk plotting. Periksa sintaks fungsi.")
-            return
-
-        # Attempt symbolic indefinite integral and display
-        indefinite_result = try_integration(expr, x_sym)
-        if indefinite_result is not None:
-            latex_integral = sp.latex(indefinite_result)
-            st.markdown(f"### Indefinite Integral:\n$$ \\int {sp.latex(expr)} \\,dx = {latex_integral} + C $$")
+        # symbolic integration
+        symbolic_result = try_integration(expr, x)
+        if symbolic_result is not None:
+            st.success(f"Hasil integral simbolik:  
+**∫ f(x) dx = {sp.simplify(symbolic_result)}**")
         else:
-            st.warning("⚠️ Tidak ditemukan integral simbolik yang sederhana (function mungkin terlalu kompleks).")
+            st.warning("Integral simbolik tidak dapat diselesaikan oleh sistem.")
 
-        # --- NUMERIC: Midpoint Rule ---
+        # numerical evaluation using lambdify
         try:
-            # ensure f_num works for scalar input (it usually does)
-            def f_scalar(t):
-                val = f_num(t)
-                # if lambdified returns array for scalar, extract
-                if isinstance(val, (list, tuple, np.ndarray)):
-                    return float(np.array(val).astype(float).item())
-                return float(val)
-            integral_result = midpoint_rule(f_scalar, lower_limit, upper_limit, int(n))
-        except Exception as e:
-            st.error("⚠️ Error saat menghitung integral numerik (midpoint). Periksa fungsi atau kurangi n.")
-            return
+            numeric_vals = [f_lambdified(t) for t in np.linspace(a_val, b_val, 2000)]
+        except:
+            numeric_vals = None
+            st.error("Gagal menghitung nilai numerik fungsi.")
 
-        # create and show plot
-        fig = create_plot(x_vals, y_vals, expr_str, lower_limit, upper_limit)
-        if fig is not None:
-            st.plotly_chart(fig, use_container_width=True)
+        # midpoint rule result
+        midpoint_result = midpoint_rule(f_lambdified, a_val, b_val, n_midpoint)
+        if midpoint_result is not None:
+            st.info(f"Metode Pias Titik Tengah (n = {n_midpoint}):  
+**≈ {midpoint_result}**")
+        else:
+            st.error("Perhitungan titik tengah gagal.")
 
-        # Display results
-        limit_display_lower = format_angle(lower_limit) if limit_type == "Angular (π)" else f"{lower_limit:.4f}"
-        limit_display_upper = format_angle(upper_limit) if limit_type == "Angular (π)" else f"{upper_limit:.4f}"
+        # If symbolic definite integral possible
+        if symbolic_result is not None:
+            try:
+                definite_symbolic = symbolic_result.subs(x, b_val) - symbolic_result.subs(x, a_val)
+                st.success(f"Hasil integral tentu secara simbolik:  
+**≈ {float(definite_symbolic)}**")
+            except:
+                st.warning("Tidak dapat mengevaluasi integral tentu simbolik.")
 
-        st.markdown(f"""
-        <div class='result-box'>
-        Integration Results:
-
-        - 📊 Function: {expr_str}
-        - 📍 Limits: [{limit_display_lower}, {limit_display_upper}]
-        - 🔢 Pembagian n: {int(n)}
-        - ✨ Definite Integral (Midpoint rule): `{integral_result:.6f}`
-        </div>
-        """, unsafe_allow_html=True)
-
-if __name__ == '__main__':
-    main()
+        # plot
+        if numeric_vals is not None:
+            x_vals = np.linspace(a_val, b_val, 2000)
+            fig = create_plot(x_vals, numeric_vals, expr_str, a_val, b_val)
+            if fig:
+                st.plotly_chart(fig, use_container_width=True)
