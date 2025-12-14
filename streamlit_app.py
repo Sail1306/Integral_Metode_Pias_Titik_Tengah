@@ -41,87 +41,143 @@ body {
     background: linear-gradient(180deg, #0d1117, #0b0f16);
 }
 
-/* Header biru glossy */
+/* ===========================
+   TITLE (H1, H2) GLOSSY BLUE
+   =========================== */
 h1, h2, h3 { 
-    color: #7cc4ff; 
-    text-shadow: 0px 0px 8px rgba(88, 176, 255, 0.5);
+    color: #82cfff !important;
+    text-shadow: 0px 0px 10px rgba(100,170,255,0.55);
+    font-weight: 700;
 }
 
-/* Tombol biru neon glossy */
+
+
+/* ===========================
+   BUTTON GLOSSY BLUE
+   =========================== */
 .stButton>button { 
     width: 100%;
     background: linear-gradient(90deg, #1e88e5, #42a5f5);
     color: white;
     border-radius: 8px;
     border: 1px solid #90caf9;
-    box-shadow: 0px 0px 10px rgba(33, 150, 243, 0.5);
+    box-shadow: 0px 0px 12px rgba(33,150,243,0.6);
     transition: 0.2s;
 }
 
 .stButton>button:hover {
     background: linear-gradient(90deg, #2196f3, #64b5f6);
-    box-shadow: 0px 0px 14px rgba(100, 181, 246, 0.7);
+    box-shadow: 0px 0px 16px rgba(100,181,246,0.7);
 }
 
-/* Input glossy */
+
+
+/* ===========================
+   TEXT INPUT GLOSSY BLUE
+   =========================== */
 .stTextInput>div>div>input {
     background: #121926;
     color: #bbdefb;
     border: 1px solid #64b5f6;
     border-radius: 6px;
     padding: 8px;
-    box-shadow: inset 0px 0px 6px rgba(100, 181, 246, 0.2);
+    box-shadow: inset 0px 0px 6px rgba(100,181,246,0.25);
 }
 
-/* Kotak highlight neon */
+
+
+/* ===========================
+   NUMBER INPUT GLOSSY BLUE
+   (untuk jumlah pembagian)
+   =========================== */
+.stNumberInput > div > input {
+    background: #121926 !important;
+    color: #bbdefb !important;
+    border: 1px solid #64b5f6 !important;
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: inset 0px 0px 6px rgba(100,181,246,0.25) !important;
+    font-weight: bold;
+}
+
+.stNumberInput label {
+    color: #90caf9 !important;
+}
+
+
+
+/* ===========================
+   HIGHLIGHT BOX
+   =========================== */
 .highlight { 
     background: #11263b;
     border-left: 5px solid #4FC3F7;
     color: #E1F5FE;
-    box-shadow: 0px 0px 10px rgba(79, 195, 247, 0.3);
+    box-shadow: 0px 0px 10px rgba(79,195,247,0.3);
 }
 
-/* Kotak hasil utama glossy */
+
+
+/* ===========================
+   RESULT BOX
+   =========================== */
 .result-box { 
     background: #162032;
     color: #FFECB3;
     border-left: 5px solid #FFB74D;
-    box-shadow: 0px 0px 10px rgba(255, 183, 77, 0.3);
+    box-shadow: 0px 0px 10px rgba(255,183,77,0.3);
     padding: 1rem;
     border-radius: 6px;
 }
 
-/* Function guide */
+
+
+/* ===========================
+   FUNCTION GUIDE
+   =========================== */
 .function-guide { 
     background: #0d1824;
     color: #90caf9;
     border-left: 4px solid #64b5f6;
-    box-shadow: 0px 0px 8px rgba(100, 181, 246, 0.3);
+    box-shadow: 0px 0px 8px rgba(100,181,246,0.3);
 }
 
-/* Angular guide */
+
+
+/* ===========================
+   ANGULAR GUIDE
+   =========================== */
 .angular-guide { 
     background: #1a2235;
     border-left: 4px solid #82B1FF;
     color: #E3F2FD;
-    box-shadow: 0px 0px 10px rgba(130, 177, 255, 0.3);
+    box-shadow: 0px 0px 10px rgba(130,177,255,0.3);
 }
 
-/* Code box */
+
+
+/* ===========================
+   CODE TEXT
+   =========================== */
 .code-text { 
     background: #1e1e1e;
     color: #81D4FA;
     border-radius: 4px;
     padding: 2px 4px;
-    box-shadow: inset 0px 0px 4px rgba(129, 212, 250, 0.3);
+    box-shadow: inset 0px 0px 4px rgba(129,212,250,0.3);
 }
 
-/* Sidebar glossy */
+
+
+/* ===========================
+   SIDEBAR
+   =========================== */
 .sidebar .sidebar-content { 
     background: linear-gradient(180deg, #0b0f16, #101827);
     color: #e3f2fd;
     border-right: 1px solid #263238;
 }
+
 </style>
 """
 
