@@ -1,8 +1,6 @@
 import streamlit as st
 import numpy as np
 import sympy as sp
-from PIL import Image
-from scipy import special
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
@@ -47,7 +45,6 @@ h1, h2, h3 { color: #90caf9; }
 </style>
 """
 
-# Terapkan CSS
 st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
 
 # ======================================================
@@ -70,7 +67,7 @@ n_midpoint = st.number_input("Jumlah pembagian (Metode Titik Tengah):", 1, 10000
 hitung = st.button("🔍 Hitung Integral")
 
 # ======================================================
-#             JIKA TOMBOL DITEKAN → MULAI HITUNG
+#        BLOK PERHITUNGAN HARUS DI DALAM if hitung:
 # ======================================================
 if hitung:
 
@@ -129,46 +126,41 @@ if hitung:
     # ======================================================
     #                 OUTPUT HASIL
     # ======================================================
-st.subheader("📌 Hasil Perhitungan")
+    st.subheader("📌 Hasil Perhitungan")
 
-# Integral Tak Tentu
-st.markdown(
-    """
-    <div class='result-box'>
-        <b>Integral umum (tak tentu):</b>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    # Integral Tak Tentu
+    st.markdown(
+        """
+        <div class='result-box'>
+            <b>Integral umum (tak tentu):</b>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-# Rumus LaTeX (MathJax)
-indef_str = sp.latex(indefinite)
-st.latex(r"\int f(x)\,dx = " + indef_str + r" + C")
+    st.latex(r"\int f(x)\,dx = " + sp.latex(indefinite) + r" + C")
 
+    # Integral Tentu
+    st.markdown(
+        f"""
+        <div class='result-box'>
+            <b>Integral tentu simbolik:</b><br>
+            ≈ {float(definite)}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-# Integral Tentu
-st.markdown(
-    f"""
-    <div class='result-box'>
-        <b>Integral tentu simbolik:</b><br>
-        ≈ {float(definite)}
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    # Midpoint Rule
+    st.markdown(
+        f"""
+        <div class='highlight'>
+            <b>Hasil Metode Pias Titik Tengah</b><br>
+            n = {n_midpoint}<br>
+            ≈ {midpoint_result}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-# Midpoint Rule
-st.markdown(
-    f"""
-    <div class='highlight'>
-        <b>Hasil Metode Pias Titik Tengah</b><br>
-        n = {n_midpoint}<br>
-        ≈ {midpoint_result}
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# Grafik
-st.plotly_chart(grafik)
-
+    st.plotly_chart(grafik)
