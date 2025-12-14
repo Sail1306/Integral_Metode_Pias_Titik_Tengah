@@ -174,8 +174,8 @@ st.title("🔢 Kalkulator Integral Lengkap – Simbolik, Numerik & Grafik")
 st.subheader("Masukkan Fungsi dan Batas Integral")
 
 fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
-a = st.text_input("Batas bawah (a):", "0")
-b = st.text_input("Batas atas (b):", "3")
+a = st.text_input("Batas atas (a):", "0")
+b = st.text_input("Batas bawah (b):", "3")
 
 n_midpoint = st.number_input("Jumlah pembagian (Metode Titik Tengah):", 1, 10000, 10)
 
@@ -209,10 +209,10 @@ if hitung:
     #        METODE TITIK TENGAH (MIDPOINT RULE)
     # ======================================================
     def midpoint_rule(func, a, b, n):
-        h = (b - a) / n
+        h = (a - b) / n
         total = 0
         for i in range(n):
-            mid = a + h * (i + 0.5)
+            mid = b + h * (i + 0.5)
             total += func(mid)
         return total * h
 
