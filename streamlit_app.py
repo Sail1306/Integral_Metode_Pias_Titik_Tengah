@@ -162,16 +162,36 @@ n = st.number_input(
 )
 
 # Guide
- with guide_col:
+with guide_col:
         st.markdown("""
-        <div class='function-guide'>
-        <h3>💡 Contoh fungsi</h3>
-        • x**2  
-        • sin(x)  
-        • exp(-x)  
-        • sin(x**2)  
+        <div class='function-guide' style='padding: 1rem; margin-bottom: 0.5rem;'>
+        <h3 style='margin-bottom: 0.5rem; font-size: 1.1em;'>💡 Quick Examples:</h3>
+        <ul style='list-style-type: none; padding-left: 0; margin-bottom: 0;'>
+            <li style='margin-bottom: 5px; font-size: 0.8em;'>📊 Basic <span class='code-text'>x**2</span></li>
+            <li style='margin-bottom: 5px; font-size: 0.8em;'>📐 Trigonometric <span class='code-text'>sin(x)</span></li>
+            <li style='margin-bottom: 5px; font-size: 0.8em;'>📈 Exponential <span class='code-text'>exp(-x)</span></li>
+            <li style='margin-bottom: 5px; font-size: 0.8em;'>🔄 Complex <span class='code-text'>sin(x**2)</span></li>
+        </ul>
         </div>
         """, unsafe_allow_html=True)
+
+        with st.expander("📚 Function Guide", expanded=False):
+            st.markdown("""
+            <div class='function-guide'>
+            <h3>🔢 Basic Operations</h3>
+            • Addition: <span class='code-text'>+</span> (x + 1)<br>
+            • Multiplication: <span class='code-text'>*</span> (2*x)<br>
+            • Power: <span class='code-text'>**</span> (x**2)<br>
+            • Division: <span class='code-text'>/</span> (x/2)<br>
+            <h3>🎯 Advanced Functions</h3>
+            • Trig: <span class='code-text'>sin(x)</span>, <span class='code-text'>cos(x)</span><br>
+            • Exp/Log: <span class='code-text'>exp(x)</span>, <span class='code-text'>log(x)</span><br>
+            <h3>🎲 Special</h3>
+            • Fresnel: <span class='code-text'>sin(x**2)</span><br>
+            • Error func: <span class='code-text'>exp(-x**2)</span><br>
+            <h3>Constants</h3> • π: <span class='code-text'>pi</span> • e: <span class='code-text'>E</span>
+            </div>
+            """, unsafe_allow_html=True)
 
 # Button hitung
 colA, colB, colC = st.columns([1, 2, 1])
