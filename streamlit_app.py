@@ -23,8 +23,8 @@ dark_css = """
     
      /* Page utama */
         .main, [data-testid="stAppViewContainer"] {
-            background-color: #F2F5FF !important;  /* biru white-ish */
-            color: #0A1A40 !important;             /* teks biru navy */
+            background-color: #F2F5FF !important;  
+            color: #0A1A40 !important;            
         }
 
     .main * {
@@ -270,7 +270,7 @@ if hitung:
     # Midpoint Rule
     st.markdown(
         f"""
-        <div class='highlight'>
+        <div class='result-box'>
             <b>Hasil Metode Pias Titik Tengah</b><br>
             n = {n_midpoint}<br>
             ≈ {midpoint_result}
