@@ -20,6 +20,16 @@ st.session_state.dark_mode = dark_switch
 
 dark_css = """
     <style>
+    
+     /* WARNA DEFAULT PAGE UTAMA */
+    .main, [data-testid="stAppViewContainer"] {
+        background-color: #0C132B !important;
+        color: #E8F0FF !important;
+    }
+
+    .main * {
+        color: #E8F0FF !important;
+    }
         /* Background halaman */
         .main {
             background-color: #0C132B !important;
