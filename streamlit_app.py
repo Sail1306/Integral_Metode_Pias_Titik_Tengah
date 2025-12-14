@@ -196,8 +196,7 @@ if st.button("Hitung Integral"):
         if symbolic_result is not None:
             try:
                 definite = symbolic_result.subs(x, b_val) - symbolic_result.subs(x, a_val)
-                st.success(f"Integral tentu simbolik:  
-**≈ {float(definite)}**")
+                sst.success(f"Integral tentu simbolik: ≈ {float(definite)}")
             except:
                 st.warning("Integral tentu simbolik tidak dapat dievaluasi.")
 
