@@ -17,18 +17,6 @@ st.session_state.dark_mode = dark_switch
 # ======================================================
 #                         CSS
 # ======================================================
-light_css = """
-<style>
-body { background-color: white; color: black; }
-.stButton>button { width: 100%; background-color: #4CAF50; color: white; }
-h1, h2, h3 { color: #1565C0; }
-.highlight { background-color: #e8f5e9; color: #2E7D32; }
-.result-box { background-color: #263238; color: #ECEFF1; border-left: 5px solid #FF9800; }
-.function-guide { background-color: #1a1a1a; color: #fff; }
-.angular-guide { background-color: #e8eaf6; border-left: 4px solid #3f51b5; }
-</style>
-"""
-
 # ------------------ MODE TERANG & GELAP (SIDEBAR + PAGE) ------------------
 
 dark_mode = st.sidebar.toggle("Dark Mode", False)
@@ -38,7 +26,7 @@ if dark_mode:
     <style>
         /* Background halaman */
         .main {
-            background-color: 0C132B !important;
+            background-color: #0C132B !important;
             color: #E8F0FF !important;
         }
 
