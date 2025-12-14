@@ -87,7 +87,7 @@ light_css = """
         /* Background halaman */
         .main {
             background-color: #E9EEFF !important;
-            color: #000000 !important;
+            color: #E9EEFF !important;
         }
 
         /* Sidebar */
