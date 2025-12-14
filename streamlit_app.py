@@ -7,6 +7,19 @@ from PIL import Image              # untuk icon
 import plotly.graph_objects as go  # untuk plotting
 from plotly.subplots import make_subplots
 
+
+try:
+    icon = Image.open("assets/icon.png")
+except:
+    icon = "📈"
+
+st.set_page_config(
+    page_title="Integral Solution (Pias Titik Tengah)",
+    page_icon=icon,
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
+
 # -------------------------------------------------------------------
 # PART 1 — CSS & UI (DARI ANDA, TIDAK ADA YANG DIUBAH)
 # -------------------------------------------------------------------
