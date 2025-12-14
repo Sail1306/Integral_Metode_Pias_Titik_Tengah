@@ -126,30 +126,40 @@ with input_col:
         limit_type = st.radio("Jenis Input Limit:", ["Decimal", "Angular (π)"], horizontal=True)
     
 # Batas bawah
-col1, col2 = st.columns(2)
-        with col1:
+limit_col1, limit_col2 = st.columns(2)
+with limit_col1:
             if limit_type == "Decimal":
-                a = st.number_input("Lower Limit", 0.0)
+                lower_limit = st.number_input('Lower Limit:', value=0.0, step=0.1, format="%.4f")
             else:
-                s = st.text_input("Lower Limit", "0")
+                lower_limit_str = st.text_input('Lower Limit:', value="0", help="Enter as multiples of π (e.g., pi/2, -pi)")
                 try:
-                    a = float(sp.sympify(s.replace("π", "pi")))
+                    expr_val = lower_limit_str.replace('π', 'pi')
+                    lower_limit = float(sp.sympify(expr_val).evalf())
                 except:
-                    a = 0.0
+                    st.error("Invalid input. Examples: pi/2, -pi, 1, 0.5")
+                    lower_limit = 0.0
 
 # Batas atas
-with col2:
+with limit_col2:
             if limit_type == "Decimal":
-                b = st.number_input("Upper Limit", 1.0)
+                upper_limit = st.number_input('Upper Limit:', value=1.0, step=0.1, format="%.4f")
             else:
-                s2 = st.text_input("Upper Limit", "pi/2")
+                upper_limit_str = st.text_input('Upper Limit:', value="pi/2", help="Enter as multiples of π (e.g., pi/2, -pi)")
                 try:
-                    b = float(sp.sympify(s2.replace("π", "pi")))
+                    expr_val = upper_limit_str.replace('π', 'pi')
+                    upper_limit = float(sp.sympify(expr_val).evalf())
                 except:
-                    b = np.pi/2
+                    st.error("Invalid input. Examples: pi/2, -pi, 1, 0.5")
+                    upper_limit = np.pi / 2
 
 # Jumlah pias
-n = st.number_input("Jumlah pembagian (n):", min_value=1, value=100)
+        n = st.number_input(
+            "Jumlah Pembagian (n):",
+            min_value=1,
+            value=100,
+            step=1,
+            help="Semakin besar n, semakin akurat (tapi lebih lama komputasinya)."
+        )
 
 # Guide
  with guide_col:
