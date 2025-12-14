@@ -19,143 +19,136 @@ st.session_state.dark_mode = dark_switch
 # ======================================================
 
 dark_css = """
-    <style>
-    
-     /* Page utama */
-        .main, [data-testid="stAppViewContainer"] {
-            background-color: #F2F5FF !important;  
-            color: #0A1A40 !important;            
-        }
+<style>
+    /* Page utama */
+    .main, [data-testid="stAppViewContainer"] {
+        background-color: #0C132B !important;
+        color: #E8F0FF !important;
+    }
 
     .main * {
         color: #E8F0FF !important;
     }
-        /* Background halaman */
-        .main {
-            background-color: #0C132B !important;
-            color: #E8F0FF !important;
-        }
 
-        /* Sidebar */
-        section[data-testid="stSidebar"] {
-            background-color: #0C132B !important;
-            border-right: 2px solid #1E3A8A !important;
-        }
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #0C132B !important;
+        border-right: 2px solid #1E3A8A !important;
+    }
 
-        /* Teks sidebar */
-        section[data-testid="stSidebar"] * {
-            color: #C5D3FF !important;
-        }
+    section[data-testid="stSidebar"] * {
+        color: #C5D3FF !important;
+    }
 
-        /* Judul */
-        h1,h2,h3,h4,h5,h6 {
-            color: #82A0FF !important;
-        }
+    /* Judul */
+    h1,h2,h3,h4,h5,h6 {
+        color: #82A0FF !important;
+    }
 
-        /* Kotak input */
-        .stTextInput>div>div>input,
-        .stNumberInput input,
-        .stTextArea textarea {
-            background-color: #152044 !important;
-            color: #DCE6FF !important;
-            border: 1px solid #3E5FBF !important;
-        }
+    /* Kotak input */
+    .stTextInput>div>div>input,
+    .stNumberInput input,
+    .stTextArea textarea {
+        background-color: #152044 !important;
+        color: #DCE6FF !important;
+        border: 1px solid #3E5FBF !important;
+    }
 
-        /* Selectbox */
-        .stSelectbox div[data-baseweb="select"] > div {
-            background-color: #152044 !important;
-            color: #DCE6FF !important;
-            border: 1px solid #3E5FBF !important;
-        }
+    /* Selectbox */
+    .stSelectbox div[data-baseweb="select"] > div {
+        background-color: #152044 !important;
+        color: #DCE6FF !important;
+        border: 1px solid #3E5FBF !important;
+    }
 
-        /* Tombol */
-        .stButton>button {
-            background-color: #1E3A8A !important;
-            color: white !important;
-            border-radius: 6px !important;
-            border: 1px solid #3F66FF !important;
-        }
+    /* Tombol */
+    .stButton>button {
+        background-color: #1E3A8A !important;
+        color: white !important;
+        border-radius: 6px !important;
+        border: 1px solid #3F66FF !important;
+    }
 
-        .stButton>button:hover {
-            background-color: #294AA8 !important;
-        }
+    .stButton>button:hover {
+        background-color: #294AA8 !important;
+    }
 
-        /* Kotak hasil */
-        .result-box {
-            background-color: #10182F !important;
-            color: #E3EAFF !important;
-            border-left: 4px solid #3F66FF !important;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-    </style>
-    """
+    /* Kotak hasil */
+    .result-box {
+        background-color: #10182F !important;
+        color: #E3EAFF !important;
+        border-left: 4px solid #3F66FF !important;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+</style>
+"""
 
 light_css = """
-    <style>
-        /* Page utama */
-        .main, [data-testid="stAppViewContainer"] {
-            background-color: #F2F5FF !important;  
-            color: #0A1A40 !important;
-        }
+<style>
+    /* Page utama */
+    .main, [data-testid="stAppViewContainer"] {
+        background-color: #F2F5FF !important;
+        color: #0A1A40 !important;
+    }
 
-        .main * {
-            color: #0A1A40 !important;
-        }
+    .main * {
+        color: #0A1A40 !important;
+    }
 
-        /* Sidebar */
-        section[data-testid="stSidebar"] {
-            background-color: #F2F5FF !important;
-            border-right: 2px solid #1E3A8A !important;
-        }
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #F2F5FF !important;
+        border-right: 2px solid #1E3A8A !important;
+    }
 
-        section[data-testid="stSidebar"] * {
-            color: #0A1A40 !important;
-        }
+    section[data-testid="stSidebar"] * {
+        color: #0A1A40 !important;
+    }
 
-        /* Judul */
-        h1,h2,h3,h4,h5,h6 {
-            color: #1E3A8A !important;
-        }
+    /* Judul */
+    h1,h2,h3,h4,h5,h6 {
+        color: #1E3A8A !important;
+    }
 
-        /* Input box */
-        .stTextInput>div>div>input,
-        .stNumberInput input,
-        .stTextArea textarea {
-            background-color: #ffffff !important;
-            color: #0A1A40 !important;
-            border: 1px solid #1E3A8A !important;
-        }
+    /* Input box */
+    .stTextInput>div>div>input,
+    .stNumberInput input,
+    .stTextArea textarea {
+        background-color: #ffffff !important;
+        color: #0A1A40 !important;
+        border: 1px solid #1E3A8A !important;
+    }
 
-        /* Selectbox */
-        .stSelectbox div[data-baseweb="select"] > div {
-            background-color: white !important;
-            color: #0A1A40 !important;
-            border: 1px solid #1E3A8A !important;
-        }
+    /* Selectbox */
+    .stSelectbox div[data-baseweb="select"] > div {
+        background-color: white !important;
+        color: #0A1A40 !important;
+        border: 1px solid #1E3A8A !important;
+    }
 
-        /* Tombol */
-        .stButton>button {
-            background-color: #1E40AF !important;
-            color: white !important;
-            border-radius: 6px !important;
-        }
+    /* Tombol */
+    .stButton>button {
+        background-color: #1E40AF !important;
+        color: white !important;
+        border-radius: 6px !important;
+    }
 
-        .stButton>button:hover {
-            background-color: #2A4CCF !important;
-        }
+    .stButton>button:hover {
+        background-color: #2A4CCF !important;
+    }
 
-        /* Kotak hasil */
-        .result-box {
-            background-color: #E9EEFF !important;
-            color: #0A1A40 !important;
-            border-left: 4px solid #1E3A8A !important;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-    </style>
+    /* Kotak hasil */
+    .result-box {
+        background-color: #E9EEFF !important;
+        color: #0A1A40 !important;
+        border-left: 4px solid #1E3A8A !important;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+</style>
 """
 
 css_theme = dark_css if st.session_state.dark_mode else light_css
@@ -166,13 +159,9 @@ st.markdown(css_theme, unsafe_allow_html=True)
 # ======================================================
 pin_css = """
 <style>
-
-    /* Hilangkan tombol hamburger menu (header menu) */
-    button[kind="header"] {
+    button[data-testid="stSidebarNavToggle"] {
         display: none !important;
     }
-
-    /* Sidebar selalu fixed / pinned */
     section[data-testid="stSidebar"] {
         position: fixed !important;
         left: 0 !important;
@@ -180,17 +169,12 @@ pin_css = """
         height: 100vh !important;
         z-index: 100 !important;
     }
-
-    /* Geser konten utama ke kanan agar tidak tertutup sidebar */
     [data-testid="stAppViewContainer"] {
         margin-left: 18rem !important;
     }
-
-    /* Hilangkan kontrol collapse */
     [data-testid="collapsedControl"] {
         display: none !important;
     }
-
 </style>
 """
 st.markdown(pin_css, unsafe_allow_html=True)
@@ -208,16 +192,13 @@ st.subheader("Masukkan Fungsi dan Batas Integral")
 fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
 a = st.text_input("Batas atas (a):", "0")
 b = st.text_input("Batas bawah (b):", "3")
-
 n_midpoint = st.number_input("Jumlah pembagian (Metode Titik Tengah):", 1, 10000, 10)
 
+# Tombol trigger perhitungan
 hitung = st.button("🔍 Hitung Integral")
 
-# ======================================================
-#        BLOK PERHITUNGAN HARUS DI DALAM if hitung:
-# ======================================================
 if hitung:
-
+    # Konversi batas numerik
     try:
         a_val = float(a)
         b_val = float(b)
@@ -225,6 +206,7 @@ if hitung:
         st.error("❌ Batas integral harus berupa angka.")
         st.stop()
 
+    # Parse fungsi sympy
     x = sp.symbols("x")
     try:
         f_sympy = sp.sympify(fungsi_str)
@@ -234,19 +216,28 @@ if hitung:
 
     f_numerik = sp.lambdify(x, f_sympy, "numpy")
 
+    # ======================================================
+    #        METODE TITIK TENGAH (MIDPOINT RULE)
+    # ======================================================
     def midpoint_rule(func, a, b, n):
-        h = (a - b) / n
+        h = (b - a) / n
         total = 0
         for i in range(n):
-            mid = b + h * (i + 0.5)
+            mid = a + h * (i + 0.5)
             total += func(mid)
         return total * h
 
     midpoint_result = midpoint_rule(f_numerik, a_val, b_val, n_midpoint)
 
+    # ======================================================
+    #                INTEGRAL SIMBOLIK
+    # ======================================================
     indefinite = sp.integrate(f_sympy, x)
     definite = sp.integrate(f_sympy, (x, a_val, b_val))
 
+    # ======================================================
+    #                    GRAFIK
+    # ======================================================
     xx = np.linspace(a_val, b_val, 300)
     yy = f_numerik(xx)
 
@@ -259,8 +250,12 @@ if hitung:
         template="plotly_dark" if st.session_state.dark_mode else "plotly_white"
     )
 
+    # ======================================================
+    #                 OUTPUT HASIL
+    # ======================================================
     st.subheader("📌 Hasil Perhitungan")
 
+    # Integral Tak Tentu
     st.markdown(
         """
         <div class='result-box'>
@@ -269,9 +264,9 @@ if hitung:
         """,
         unsafe_allow_html=True
     )
-
     st.latex(r"\int f(x)\,dx = " + sp.latex(indefinite) + r" + C")
 
+    # Integral Tentu
     st.markdown(
         f"""
         <div class='result-box'>
@@ -282,6 +277,7 @@ if hitung:
         unsafe_allow_html=True
     )
 
+    # Midpoint Rule
     st.markdown(
         f"""
         <div class='result-box'>
