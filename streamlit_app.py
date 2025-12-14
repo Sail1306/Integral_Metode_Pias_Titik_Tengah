@@ -165,6 +165,7 @@ pin_css = """
         top: 0 !important;
         height: 100vh !important;
         z-index: 100 !important;
+        box-shadow: 4px 0 10px rgba(0,0,0,0.2) !important; 
     }
     [data-testid="stAppViewContainer"] {
         margin-left: 16rem !important;
