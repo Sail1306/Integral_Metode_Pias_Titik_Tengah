@@ -154,9 +154,6 @@ light_css = """
 css_theme = dark_css if st.session_state.dark_mode else light_css
 st.markdown(css_theme, unsafe_allow_html=True)
 
-# ======================================================
-#      ➕ Tambahan CSS → Pin Sidebar & Hilangkan Menu
-# ======================================================
 pin_css = """
 <style>
     button[data-testid="stSidebarNavToggle"] {
@@ -170,7 +167,7 @@ pin_css = """
         z-index: 100 !important;
     }
     [data-testid="stAppViewContainer"] {
-        margin-left: 18rem !important;
+        margin-left: 2rem !important;
     }
     [data-testid="collapsedControl"] {
         display: none !important;
