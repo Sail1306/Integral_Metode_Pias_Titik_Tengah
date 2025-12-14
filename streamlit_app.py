@@ -171,8 +171,9 @@ if st.button("Hitung Integral"):
         # Symbolic
         symbolic_result = try_integration(expr, x)
         if symbolic_result is not None:
-            st.success(f"Integral umum:  
-**∫ f(x) dx = {sp.simplify(symbolic_result)}**")
+            sst.success(
+    f"Integral umum: ∫ f(x) dx = {sp.simplify(symbolic_result)}"
+)
         else:
             st.warning("Integral simbolik tidak dapat diselesaikan sistem.")
 
