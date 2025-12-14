@@ -86,7 +86,7 @@ light_css = """
     <style>
         /* Background halaman */
         .main {
-            background-color: #ffffff !important;
+            background-color: #E9EEFF !important;
             color: #000000 !important;
         }
 
