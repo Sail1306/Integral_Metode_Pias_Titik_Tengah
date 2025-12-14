@@ -31,6 +31,8 @@ h1, h2, h3 { color: #1565C0; }
 
 # ------------------ MODE TERANG & GELAP (SIDEBAR + PAGE) ------------------
 
+dark_mode = st.sidebar.toggle("Dark Mode", False)
+
 if dark_mode:
     st.markdown("""
     <style>
