@@ -16,7 +16,6 @@ st.sidebar.title("⚙️ Pengaturan")
 dark_switch = st.sidebar.checkbox("🌙 Mode Gelap", value=st.session_state.dark_mode)
 st.session_state.dark_mode = dark_switch
 
-
 # ======================================================
 #                         CSS
 # ======================================================
@@ -51,12 +50,10 @@ h1, h2, h3 { color: #90caf9; }
 # Terapkan CSS
 st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
 
-
 # ======================================================
 #                         TITLE
 # ======================================================
 st.title("🔢 Kalkulator Integral Lengkap – Simbolik, Numerik & Grafik")
-
 
 # ======================================================
 #                    INPUT PENGGUNA
@@ -67,94 +64,89 @@ fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
 a = st.text_input("Batas bawah (a):", "0")
 b = st.text_input("Batas atas (b):", "3")
 
-# Konversi batas ke float
-try:
-    a_val = float(a)
-    b_val = float(b)
-except:
-    st.error("❌ Batas integral harus berupa angka.")
-    st.stop()
+n_midpoint = st.number_input("Jumlah pembagian (Metode Titik Tengah):", 1, 10000, 10)
 
+# Tombol trigger perhitungan
+hitung = st.button("🔍 Hitung Integral")
 
 # ======================================================
-#                  KONVERSI FUNGSI
+#             JIKA TOMBOL DITEKAN → MULAI HITUNG
 # ======================================================
-x = sp.symbols("x")
-try:
-    f_sympy = sp.sympify(fungsi_str)
-except:
-    st.error("❌ Fungsi tidak valid. Periksa kembali penulisan Anda.")
-    st.stop()
+if hitung:
 
-f_numerik = sp.lambdify(x, f_sympy, "numpy")
+    # Konversi batas numerik
+    try:
+        a_val = float(a)
+        b_val = float(b)
+    except:
+        st.error("❌ Batas integral harus berupa angka.")
+        st.stop()
 
+    # Parse fungsi sympy
+    x = sp.symbols("x")
+    try:
+        f_sympy = sp.sympify(fungsi_str)
+    except:
+        st.error("❌ Fungsi tidak valid. Periksa kembali penulisan.")
+        st.stop()
 
-# ======================================================
-#                MIDPOINT RULE (TITIK TENGAH)
-# ======================================================
-def midpoint_rule(func, a, b, n):
-    h = (b - a) / n
-    total = 0
+    f_numerik = sp.lambdify(x, f_sympy, "numpy")
 
-    for i in range(n):
-        mid = a + h * (i + 0.5)
-        total += func(mid)
+    # ======================================================
+    #        METODE TITIK TENGAH (MIDPOINT RULE)
+    # ======================================================
+    def midpoint_rule(func, a, b, n):
+        h = (b - a) / n
+        total = 0
+        for i in range(n):
+            mid = a + h * (i + 0.5)
+            total += func(mid)
+        return total * h
 
-    return total * h
+    midpoint_result = midpoint_rule(f_numerik, a_val, b_val, n_midpoint)
 
+    # ======================================================
+    #                INTEGRAL SIMBOLIK
+    # ======================================================
+    indefinite = sp.integrate(f_sympy, x)
+    definite = sp.integrate(f_sympy, (x, a_val, b_val))
 
-n_midpoint = st.number_input("Jumlah pembagian untuk metode titik tengah:", 1, 10000, 10)
-midpoint_result = midpoint_rule(f_numerik, a_val, b_val, n_midpoint)
+    # ======================================================
+    #                    GRAFIK
+    # ======================================================
+    xx = np.linspace(a_val, b_val, 300)
+    yy = f_numerik(xx)
 
+    grafik = make_subplots()
+    grafik.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
+    grafik.update_layout(
+        title="Grafik Fungsi",
+        xaxis_title="x",
+        yaxis_title="f(x)",
+        template="plotly_dark" if st.session_state.dark_mode else "plotly_white"
+    )
 
-# ======================================================
-#                INTEGRAL SIMBOLIK
-# ======================================================
-indefinite = sp.integrate(f_sympy, x)
-definite = sp.integrate(f_sympy, (x, a_val, b_val))
+    # ======================================================
+    #                 OUTPUT HASIL
+    # ======================================================
+    st.subheader("📌 Hasil Perhitungan")
 
+    st.success(
+        f"Integral umum (tak tentu):<br>"
+        f"<b>∫ f(x) dx = {sp.latex(indefinite)}</b>",
+        unsafe_allow_html=True
+    )
 
-# ======================================================
-#                    PLOT GRAFIK
-# ======================================================
-xx = np.linspace(a_val, b_val, 300)
-yy = f_numerik(xx)
+    st.success(
+        f"Integral tentu simbolik:<br>"
+        f"<b>≈ {float(definite)}</b>",
+        unsafe_allow_html=True
+    )
 
-grafik = make_subplots()
-grafik.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
-grafik.update_layout(
-    title="Grafik Fungsi",
-    xaxis_title="x",
-    yaxis_title="f(x)",
-    template="plotly_dark" if st.session_state.dark_mode else "plotly_white"
-)
+    st.info(
+        f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}):<br>"
+        f"<b>≈ {midpoint_result}</b>",
+        unsafe_allow_html=True
+    )
 
-
-# ======================================================
-#                   TAMPILKAN HASIL
-# ======================================================
-st.subheader("📌 Hasil Perhitungan")
-
-# Integral tak tentu
-st.success(
-    f"Integral umum (tak tentu):<br>"
-    f"<b>∫ f(x) dx = {sp.latex(indefinite)}</b>",
-    unsafe_allow_html=True
-)
-
-# Integral tentu
-st.success(
-    f"Integral tentu simbolik:<br>"
-    f"<b>≈ {float(definite)}</b>",
-    unsafe_allow_html=True
-)
-
-# Midpoint rule
-st.info(
-    f"Hasil Metode Pias Titik Tengah (n = {n_midpoint}):<br>"
-    f"<b>≈ {midpoint_result}</b>",
-    unsafe_allow_html=True
-)
-
-# Grafik
-st.plotly_chart(grafik)
+    st.plotly_chart(grafik)
