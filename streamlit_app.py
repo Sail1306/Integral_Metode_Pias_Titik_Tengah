@@ -151,3 +151,14 @@ with col2:
 # Jumlah pias
 n = st.number_input("Jumlah pembagian (n):", min_value=1, value=100)
 
+# Guide
+ with guide_col:
+        st.markdown("""
+        <div class='function-guide'>
+        <h3>💡 Contoh fungsi</h3>
+        • x**2  
+        • sin(x)  
+        • exp(-x)  
+        • sin(x**2)  
+        </div>
+        """, unsafe_allow_html=True)
