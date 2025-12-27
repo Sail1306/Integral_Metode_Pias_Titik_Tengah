@@ -4,6 +4,7 @@ import sympy as sp
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+from PIL import Image
 
 # ======================================================
 # KONFIGURASI HALAMAN
@@ -118,116 +119,38 @@ svg {
 
 light_css = """
 <style>
-/* ===============================
-   BACKGROUND (TERANG)
-================================ */
-[data-testid="stAppViewContainer"] {
-    background-color: #F9FAFB;
-}
+[data-testid="stAppViewContainer"] { background-color: #F2F5FF; }
+[data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
 
-[data-testid="stSidebar"] {
-    background-color: #EEF2F7;
-    border-right: 2px solid #1F2937;
-}
+h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
+p, label, span, div { color: #0A1A40; }
 
-/* ===============================
-   TEKS (GELAP – LAWAN DARK MODE)
-================================ */
-h1, h2, h3, h4, h5, h6 {
-    color: #111827 !important;
-}
-
-p, label, span, div {
-    color: #1F2937 !important;
-}
-
-/* ===============================
-   INPUT
-================================ */
 input, textarea {
-    background-color: #FFFFFF !important;
-    color: #111827 !important;
-    border: 1px solid #1F2937 !important;
+    background-color: white !important;
+    color: #0A1A40 !important;
+    border: 1px solid #1E3A8A !important;
 }
 
 [data-baseweb="select"] > div {
-    background-color: #FFFFFF !important;
-    color: #111827 !important;
+    background-color: white !important;
+    color: #0A1A40 !important;
 }
 
-/* ===============================
-   BUTTON
-================================ */
 button {
-    background-color: #1F2937 !important;
-    color: #FFFFFF !important;
+    background-color: #1E40AF !important;
+    color: white !important;
 }
 
-/* ===============================
-   DATAFRAME
-================================ */
 [data-testid="stDataFrame"] {
-    background-color: #FFFFFF;
-    color: #111827;
+    background-color: white;
+    color: #0A1A40;
 }
 
-/* ===============================
-   RESULT BOX
-================================ */
 .result-box {
-    background-color: #E5E7EB;
-    border-left: 4px solid #1F2937;
+    background-color: #E9EEFF;
+    border-left: 4px solid #1E3A8A;
     padding: 12px;
     border-radius: 8px;
-    color: #111827;
-}
-
-/* ===============================
-   IKON (GELAP – OPPOSITE DARK MODE)
-================================ */
-
-/* Semua SVG */
-svg {
-    fill: #111827 !important;
-    stroke: #111827 !important;
-    color: #111827 !important;
-}
-
-/* Path */
-path {
-    fill: #111827 !important;
-    stroke: #111827 !important;
-}
-
-/* Checkbox & Radio */
-[data-baseweb="checkbox"] svg,
-[data-baseweb="radio"] svg {
-    fill: #1F2937 !important;
-    stroke: #1F2937 !important;
-}
-
-/* Number input spinner */
-[data-testid="stNumberInput"] button svg {
-    fill: #1F2937 !important;
-    stroke: #1F2937 !important;
-}
-
-/* File uploader */
-[data-testid="stFileUploader"] svg {
-    fill: #1F2937 !important;
-    stroke: #1F2937 !important;
-}
-
-/* Sidebar collapse */
-[data-testid="stSidebarCollapseButton"] svg {
-    fill: #111827 !important;
-    stroke: #111827 !important;
-}
-
-/* Plotly toolbar */
-.modebar-btn path {
-    fill: #111827 !important;
-    stroke: #111827 !important;
 }
 </style>
 """
@@ -247,6 +170,16 @@ fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
 a = st.text_input("Batas bawah (a):", "0")
 b = st.text_input("Batas atas (b):", "3")
 n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
+
+# ======================================================
+# UPLOAD GAMBAR
+# ======================================================
+st.markdown("### 📷 Unggah Gambar Soal (Opsional)")
+uploaded = st.file_uploader("Unggah gambar (.png/.jpg)", ["png", "jpg", "jpeg"])
+if uploaded:
+    img = Image.open(uploaded)
+    st.image(img, caption="Gambar terunggah", use_container_width=True)
+    st.info("Gambar digunakan sebagai referensi visual soal.")
 
 # ======================================================
 # PROSES
