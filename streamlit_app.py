@@ -4,7 +4,6 @@ import sympy as sp
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-from PIL import Image
 
 # ======================================================
 # KONFIGURASI HALAMAN
@@ -170,16 +169,6 @@ fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
 a = st.text_input("Batas bawah (a):", "0")
 b = st.text_input("Batas atas (b):", "3")
 n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
-
-# ======================================================
-# UPLOAD GAMBAR
-# ======================================================
-st.markdown("### 📷 Unggah Gambar Soal (Opsional)")
-uploaded = st.file_uploader("Unggah gambar (.png/.jpg)", ["png", "jpg", "jpeg"])
-if uploaded:
-    img = Image.open(uploaded)
-    st.image(img, caption="Gambar terunggah", use_container_width=True)
-    st.info("Gambar digunakan sebagai referensi visual soal.")
 
 # ======================================================
 # PROSES
