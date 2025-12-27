@@ -118,38 +118,94 @@ svg {
 
 light_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #F2F5FF; }
-[data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
+[data-testid="stAppViewContainer"] {
+    background-color: #F2F5FF;
+}
 
-h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
-p, label, span, div { color: #0A1A40; }
+[data-testid="stSidebar"] {
+    background-color: #EEF2FF;
+    border-right: 2px solid #1E3A8A;
+}
 
+/* Text */
+h1,h2,h3,h4,h5,h6 {
+    color: #1E3A8A;
+}
+
+p, label, span, div {
+    color: #0A1A40;
+}
+
+/* Input */
 input, textarea {
-    background-color: white !important;
+    background-color: #FFFFFF !important;
     color: #0A1A40 !important;
     border: 1px solid #1E3A8A !important;
 }
 
 [data-baseweb="select"] > div {
-    background-color: white !important;
+    background-color: #FFFFFF !important;
     color: #0A1A40 !important;
 }
 
+/* Button */
 button {
     background-color: #1E40AF !important;
-    color: white !important;
+    color: #FFFFFF !important;
 }
 
+/* DataFrame */
 [data-testid="stDataFrame"] {
-    background-color: white;
+    background-color: #FFFFFF;
     color: #0A1A40;
 }
 
+/* Result box */
 .result-box {
     background-color: #E9EEFF;
     border-left: 4px solid #1E3A8A;
     padding: 12px;
     border-radius: 8px;
+}
+
+/* ===== FIX IKON LIGHT MODE ===== */
+
+/* Semua SVG */
+svg {
+    fill: #1E3A8A !important;
+    stroke: #1E3A8A !important;
+    color: #1E3A8A !important;
+}
+
+/* Path khusus */
+path {
+    fill: #1E3A8A !important;
+    stroke: #1E3A8A !important;
+}
+
+/* Checkbox & radio */
+[data-baseweb="checkbox"] svg,
+[data-baseweb="radio"] svg {
+    fill: #1E40AF !important;
+    stroke: #1E40AF !important;
+}
+
+/* Number input spinner */
+[data-testid="stNumberInput"] button svg {
+    fill: #1E3A8A !important;
+    stroke: #1E3A8A !important;
+}
+
+/* Sidebar collapse */
+[data-testid="stSidebarCollapseButton"] svg {
+    fill: #1E3A8A !important;
+    stroke: #1E3A8A !important;
+}
+
+/* Plotly modebar */
+.modebar-btn path {
+    fill: #1E3A8A !important;
+    stroke: #1E3A8A !important;
 }
 </style>
 """
