@@ -4,5 +4,3 @@ sympy
 pandas
 plotly
 pillow
-pytesseract
-opencv-python
