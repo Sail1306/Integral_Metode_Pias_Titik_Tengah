@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# STATE DARK MODE
+# STATE DARK MODE (AMAN)
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
@@ -26,59 +26,35 @@ if "dark_mode" not in st.session_state:
 # SIDEBAR
 # ======================================================
 st.sidebar.title("⚙️ Pengaturan")
-st.session_state.dark_mode = st.sidebar.checkbox(
+st.sidebar.checkbox(
     "🌙 Mode Gelap",
-    value=st.session_state.dark_mode
+    key="dark_mode"
 )
 
 st.sidebar.markdown("## 📘 Panduan Penulisan Input")
 st.sidebar.markdown("""
-**Penulisan Fungsi**
 - Gunakan variabel `x`
 - Operator: `+ - * / **`
-- Contoh:
-  - `x**2 + 3*x`
-  - `sin(x)`
-  - `exp(x)`
-
-**Fungsi Didukung**
-- sin, cos, tan
-- exp, log
-- Polinomial
-
-**Batas Integral**
-- Bilangan real
-- Contoh: 0, 2.5, -1
-
-**Jumlah Subinterval**
-- Semakin besar n → hasil lebih akurat
+- Contoh: `x**2 + sin(x)`
+- Batas integral harus bilangan real
 """)
 
 # ======================================================
-# CSS TEMA (STABIL)
+# CSS TEMA (AMAN & STABIL)
 # ======================================================
 dark_css = """
 <style>
 [data-testid="stAppViewContainer"] { background-color: #0C132B; }
-[data-testid="stSidebar"] { background-color: #0F172A; border-right: 2px solid #1E3A8A; }
-h1,h2,h3,h4,h5,h6 { color: #93B4FF; }
-p, label, span, div { color: #E5EDFF; }
+[data-testid="stSidebar"] { background-color: #0F172A; }
+h1,h2,h3 { color: #93B4FF; }
+label, p { color: #E5EDFF; }
 input, textarea {
-    background-color: #152044 !important;
-    color: #E5EDFF !important;
-    border: 1px solid #3E5FBF !important;
-}
-[data-baseweb="select"] > div {
     background-color: #152044 !important;
     color: #E5EDFF !important;
 }
 button {
     background-color: #1E3A8A !important;
     color: white !important;
-}
-[data-testid="stDataFrame"] {
-    background-color: #0F172A;
-    color: #E5EDFF;
 }
 .result-box {
     background-color: #10182F;
@@ -92,25 +68,16 @@ button {
 light_css = """
 <style>
 [data-testid="stAppViewContainer"] { background-color: #F2F5FF; }
-[data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
-h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
-p, label, span, div { color: #0A1A40; }
+[data-testid="stSidebar"] { background-color: #EEF2FF; }
+h1,h2,h3 { color: #1E3A8A; }
+label, p { color: #0A1A40; }
 input, textarea {
-    background-color: white !important;
-    color: #0A1A40 !important;
-    border: 1px solid #1E3A8A !important;
-}
-[data-baseweb="select"] > div {
     background-color: white !important;
     color: #0A1A40 !important;
 }
 button {
     background-color: #1E40AF !important;
     color: white !important;
-}
-[data-testid="stDataFrame"] {
-    background-color: white;
-    color: #0A1A40;
 }
 .result-box {
     background-color: #E9EEFF;
@@ -127,7 +94,7 @@ st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_
 # JUDUL
 # ======================================================
 st.title("🔢 Kalkulator Integral Simbolik dan Numerik")
-st.subheader("Metode Pias Titik Tengah (Midpoint Rule)")
+st.subheader("Metode Pias Titik Tengah")
 
 # ======================================================
 # INPUT
@@ -136,16 +103,6 @@ fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
 a = st.text_input("Batas bawah (a):", "0")
 b = st.text_input("Batas atas (b):", "3")
 n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
-
-# ======================================================
-# UPLOAD GAMBAR (OPSIONAL)
-# ======================================================
-st.markdown("### 📷 Unggah Gambar Fungsi (Opsional)")
-uploaded = st.file_uploader("Unggah gambar fungsi (.png/.jpg)", ["png", "jpg", "jpeg"])
-if uploaded:
-    img = Image.open(uploaded)
-    st.image(img, caption="Gambar terunggah", use_container_width=True)
-    st.info("Fitur OCR bersifat terbatas dan hanya bersifat pendukung.")
 
 # ======================================================
 # PROSES
@@ -168,20 +125,19 @@ if st.button("🔍 Hitung Integral"):
 
     f_num = sp.lambdify(x, f_sym, "numpy")
 
-    # Metode Titik Tengah
     h = (b_val - a_val) / n
-    data = []
     total = 0
+    rows = []
 
     for i in range(n):
         xm = a_val + (i + 0.5) * h
-        fxm = f_num(xm)
+        fxm = float(f_num(xm))
         area = fxm * h
         total += area
-        data.append([i + 1, xm, fxm, area])
+        rows.append([i + 1, xm, fxm, area])
 
     df = pd.DataFrame(
-        data,
+        rows,
         columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"]
     )
 
@@ -189,25 +145,21 @@ if st.button("🔍 Hitung Integral"):
     int_umum = sp.integrate(f_sym, x)
     int_tentu = sp.integrate(f_sym, (x, a_val, b_val))
 
-    # ==================================================
     # OUTPUT
-    # ==================================================
     st.subheader("📌 Hasil Perhitungan")
 
     st.markdown("<div class='result-box'><b>Integral Tak Tentu</b></div>", unsafe_allow_html=True)
     st.latex(r"\int f(x)\,dx = " + sp.latex(int_umum) + r" + C")
 
-    st.markdown("<div class='result-box'><b>Integral Tentu (Simbolik)</b></div>", unsafe_allow_html=True)
+    st.markdown("<div class='result-box'><b>Integral Tentu</b></div>", unsafe_allow_html=True)
     st.latex(sp.latex(int_tentu))
 
     st.markdown("<div class='result-box'><b>Metode Titik Tengah</b></div>", unsafe_allow_html=True)
     st.write(f"Nilai pendekatan numerik = **{total}**")
 
-    # Tabel iterasi
     st.subheader("📊 Tabel Iterasi")
     st.dataframe(df, use_container_width=True)
 
-    # Grafik
     xx = np.linspace(a_val, b_val, 400)
     yy = f_num(xx)
 
@@ -216,8 +168,7 @@ if st.button("🔍 Hitung Integral"):
     fig.update_layout(
         template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
         xaxis_title="x",
-        yaxis_title="f(x)",
-        title="Grafik Fungsi f(x)"
+        yaxis_title="f(x)"
     )
 
     st.plotly_chart(fig, use_container_width=True)
