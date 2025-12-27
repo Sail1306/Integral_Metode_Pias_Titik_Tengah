@@ -159,7 +159,7 @@ input, textarea {
    BUTTON
 ================================ */
 button {
-    background-color: #1F2937 !important;
+    background-color: #1E3A8A !important;
     color: #FFFFFF !important;
 }
 
