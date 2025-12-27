@@ -172,16 +172,6 @@ b = st.text_input("Batas atas (b):", "3")
 n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
 
 # ======================================================
-# UPLOAD GAMBAR
-# ======================================================
-st.markdown("### 📷 Unggah Gambar Soal (Opsional)")
-uploaded = st.file_uploader("Unggah gambar (.png/.jpg)", ["png", "jpg", "jpeg"])
-if uploaded:
-    img = Image.open(uploaded)
-    st.image(img, caption="Gambar terunggah", use_container_width=True)
-    st.info("Gambar digunakan sebagai referensi visual soal.")
-
-# ======================================================
 # PROSES
 # ======================================================
 if st.button("🔍 Hitung Integral"):
