@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# STATE MODE
+# STATE DARK MODE
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
@@ -25,8 +25,8 @@ if "dark_mode" not in st.session_state:
 # ======================================================
 # SIDEBAR
 # ======================================================
-st.sidebar.title("⚙️ Pengaturan Tampilan")
-st.session_state.dark_mode = st.sidebar.toggle(
+st.sidebar.title("⚙️ Pengaturan")
+st.session_state.dark_mode = st.sidebar.checkbox(
     "🌙 Mode Gelap",
     value=st.session_state.dark_mode
 )
@@ -47,46 +47,60 @@ st.sidebar.markdown("""
 - Polinomial
 
 **Batas Integral**
-- Bilangan real
+- Bilangan real (contoh: 0, 2.5, -1)
 
 **Jumlah Subinterval**
 - Nilai n besar → akurasi meningkat
 """)
 
 # ======================================================
-# CSS TEMA (KONSISTEN)
+# CSS TEMA (LENGKAP & STABIL)
 # ======================================================
 dark_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #0B1023; }
-[data-testid="stSidebar"] { background-color: #0F172A; }
-h1,h2,h3,h4,h5,h6 { color: #E5EDFF; }
-label, p, span, div { color: #E5EDFF !important; }
+[data-testid="stAppViewContainer"] { background-color: #0C132B; color: #E5EDFF; }
+[data-testid="stSidebar"] { background-color: #0F172A; border-right: 2px solid #1E3A8A; }
+h1,h2,h3,h4,h5,h6 { color: #93B4FF; }
+p, label, span, div { color: #E5EDFF; }
 
 input, textarea {
-    background-color: #111827 !important;
+    background-color: #152044 !important;
     color: #E5EDFF !important;
-    border: 1px solid #3B82F6 !important;
+    border: 1px solid #3E5FBF !important;
 }
 
 [data-baseweb="select"] > div {
-    background-color: #111827 !important;
+    background-color: #152044 !important;
     color: #E5EDFF !important;
 }
 
 button {
-    background-color: #2563EB !important;
-    color: #FFFFFF !important;
+    background-color: #1E3A8A !important;
+    color: white !important;
 }
 
 [data-testid="stDataFrame"] {
-    background-color: #020617;
+    background-color: #0F172A;
     color: #E5EDFF;
 }
 
+/* File uploader - dark */
+[data-testid="stFileUploader"] section {
+    background-color: #152044 !important;
+    border: 2px dashed #3E5FBF !important;
+}
+[data-testid="stFileUploader"] label,
+[data-testid="stFileUploader"] small {
+    color: #E5EDFF !important;
+}
+[data-testid="stFileUploader"] button {
+    background-color: #1E3A8A !important;
+    color: white !important;
+}
+
 .result-box {
-    background-color: #020617;
-    border-left: 4px solid #60A5FA;
+    background-color: #10182F;
+    border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
 }
@@ -95,30 +109,39 @@ button {
 
 light_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #F8FAFF; }
-[data-testid="stSidebar"] { background-color: #EEF2FF; }
+[data-testid="stAppViewContainer"] { background-color: #F2F5FF; color: #0A1A40; }
+[data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
 h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
-label, p, span, div { color: #0A1A40 !important; }
+p, label, span, div { color: #0A1A40; }
 
 input, textarea {
-    background-color: #FFFFFF !important;
+    background-color: white !important;
     color: #0A1A40 !important;
     border: 1px solid #1E3A8A !important;
 }
 
 [data-baseweb="select"] > div {
-    background-color: #FFFFFF !important;
+    background-color: white !important;
     color: #0A1A40 !important;
 }
 
 button {
     background-color: #1E40AF !important;
-    color: #FFFFFF !important;
+    color: white !important;
 }
 
-[data-testid="stDataFrame"] {
-    background-color: #FFFFFF;
-    color: #0A1A40;
+/* File uploader - light */
+[data-testid="stFileUploader"] section {
+    background-color: white !important;
+    border: 2px dashed #1E3A8A !important;
+}
+[data-testid="stFileUploader"] label,
+[data-testid="stFileUploader"] small {
+    color: #0A1A40 !important;
+}
+[data-testid="stFileUploader"] button {
+    background-color: #1E40AF !important;
+    color: white !important;
 }
 
 .result-box {
@@ -139,7 +162,7 @@ st.title("🔢 Kalkulator Integral Simbolik dan Numerik")
 st.subheader("Metode Pias Titik Tengah (Midpoint Rule)")
 
 # ======================================================
-# INPUT MANUAL
+# INPUT
 # ======================================================
 fungsi_str = st.text_input("Masukkan fungsi f(x):", "sin(x) + x**2")
 a = st.text_input("Batas bawah (a):", "0")
@@ -147,30 +170,21 @@ b = st.text_input("Batas atas (b):", "3")
 n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
 
 # ======================================================
-# UNGGAH FOTO SOAL
+# UPLOAD GAMBAR
 # ======================================================
-st.markdown("### 📷 Unggah Foto Soal Integral (Opsional)")
-uploaded = st.file_uploader(
-    "Unggah foto soal (.png / .jpg)",
-    ["png", "jpg", "jpeg"]
-)
-
+st.markdown("### 📷 Unggah Foto Soal (Opsional)")
+uploaded = st.file_uploader("Unggah gambar (.png/.jpg)", ["png", "jpg", "jpeg"])
 if uploaded:
     img = Image.open(uploaded)
-    st.image(img, caption="Foto soal terunggah", use_container_width=True)
-    st.info(
-        "Gambar digunakan sebagai referensi visual. "
-        "Ekstraksi otomatis (OCR matematika) dapat dikembangkan pada tahap lanjutan."
-    )
+    st.image(img, caption="Gambar terunggah", use_container_width=True)
+    st.info("Ekstraksi otomatis masih bersifat pengembangan.")
 
 # ======================================================
 # PROSES PERHITUNGAN
 # ======================================================
 if st.button("🔍 Hitung Integral"):
-
     try:
-        a_val = float(a)
-        b_val = float(b)
+        a_val, b_val = float(a), float(b)
     except ValueError:
         st.error("Batas integral harus berupa bilangan real.")
         st.stop()
@@ -185,20 +199,16 @@ if st.button("🔍 Hitung Integral"):
     f_num = sp.lambdify(x, f_sym, "numpy")
 
     h = (b_val - a_val) / n
-    data = []
-    total = 0
+    data, total = [], 0.0
 
     for i in range(n):
         xm = a_val + (i + 0.5) * h
-        fxm = f_num(xm)
+        fxm = float(f_num(xm))
         area = fxm * h
         total += area
         data.append([i + 1, xm, fxm, area])
 
-    df = pd.DataFrame(
-        data,
-        columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"]
-    )
+    df = pd.DataFrame(data, columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"])
 
     int_umum = sp.integrate(f_sym, x)
     int_tentu = sp.integrate(f_sym, (x, a_val, b_val))
@@ -220,8 +230,30 @@ if st.button("🔍 Hitung Integral"):
     st.subheader("📊 Tabel Iterasi")
     st.dataframe(df, use_container_width=True)
 
-    xx = np.linspace(a_val, b_val, 400)
-    yy = f_num(xx)
+    # ==================================================
+    # GRAFIK (STABIL)
+    # ==================================================
+    try:
+        xx = np.linspace(a_val, b_val, 400)
+        yy = np.array(f_num(xx), dtype=float)
+        mask = np.isfinite(yy)
 
-    fig = make_subplots()
-    fig.add_trace_
+        fig = make_subplots()
+        fig.add_trace(go.Scatter(
+            x=xx[mask],
+            y=yy[mask],
+            mode="lines",
+            name="f(x)"
+        ))
+
+        fig.update_layout(
+            template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
+            title="Grafik Fungsi f(x)",
+            xaxis_title="x",
+            yaxis_title="f(x)"
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    except:
+        st.warning("Grafik tidak dapat ditampilkan pada interval tersebut.")
