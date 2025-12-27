@@ -118,94 +118,116 @@ svg {
 
 light_css = """
 <style>
+/* ===============================
+   BACKGROUND (TERANG)
+================================ */
 [data-testid="stAppViewContainer"] {
-    background-color: #F2F5FF;
+    background-color: #F9FAFB;
 }
 
 [data-testid="stSidebar"] {
-    background-color: #EEF2FF;
-    border-right: 2px solid #1E3A8A;
+    background-color: #EEF2F7;
+    border-right: 2px solid #1F2937;
 }
 
-/* Text */
-h1,h2,h3,h4,h5,h6 {
-    color: #1E3A8A;
+/* ===============================
+   TEKS (GELAP – LAWAN DARK MODE)
+================================ */
+h1, h2, h3, h4, h5, h6 {
+    color: #111827 !important;
 }
 
 p, label, span, div {
-    color: #0A1A40;
+    color: #1F2937 !important;
 }
 
-/* Input */
+/* ===============================
+   INPUT
+================================ */
 input, textarea {
     background-color: #FFFFFF !important;
-    color: #0A1A40 !important;
-    border: 1px solid #1E3A8A !important;
+    color: #111827 !important;
+    border: 1px solid #1F2937 !important;
 }
 
 [data-baseweb="select"] > div {
     background-color: #FFFFFF !important;
-    color: #0A1A40 !important;
+    color: #111827 !important;
 }
 
-/* Button */
+/* ===============================
+   BUTTON
+================================ */
 button {
-    background-color: #1E40AF !important;
+    background-color: #1F2937 !important;
     color: #FFFFFF !important;
 }
 
-/* DataFrame */
+/* ===============================
+   DATAFRAME
+================================ */
 [data-testid="stDataFrame"] {
     background-color: #FFFFFF;
-    color: #0A1A40;
+    color: #111827;
 }
 
-/* Result box */
+/* ===============================
+   RESULT BOX
+================================ */
 .result-box {
-    background-color: #E9EEFF;
-    border-left: 4px solid #1E3A8A;
+    background-color: #E5E7EB;
+    border-left: 4px solid #1F2937;
     padding: 12px;
     border-radius: 8px;
+    color: #111827;
 }
 
-/* ===== FIX IKON LIGHT MODE ===== */
+/* ===============================
+   IKON (GELAP – OPPOSITE DARK MODE)
+================================ */
 
 /* Semua SVG */
 svg {
-    fill: #1E3A8A !important;
-    stroke: #1E3A8A !important;
-    color: #1E3A8A !important;
+    fill: #111827 !important;
+    stroke: #111827 !important;
+    color: #111827 !important;
 }
 
-/* Path khusus */
+/* Path */
 path {
-    fill: #1E3A8A !important;
-    stroke: #1E3A8A !important;
+    fill: #111827 !important;
+    stroke: #111827 !important;
 }
 
-/* Checkbox & radio */
+/* Checkbox & Radio */
 [data-baseweb="checkbox"] svg,
 [data-baseweb="radio"] svg {
-    fill: #1E40AF !important;
-    stroke: #1E40AF !important;
+    fill: #1F2937 !important;
+    stroke: #1F2937 !important;
 }
 
 /* Number input spinner */
 [data-testid="stNumberInput"] button svg {
-    fill: #1E3A8A !important;
-    stroke: #1E3A8A !important;
+    fill: #1F2937 !important;
+    stroke: #1F2937 !important;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] svg {
+    fill: #1F2937 !important;
+    stroke: #1F2937 !important;
 }
 
 /* Sidebar collapse */
 [data-testid="stSidebarCollapseButton"] svg {
-    fill: #1E3A8A !important;
-    stroke: #1E3A8A !important;
+    fill: #111827 !important;
+    stroke: #111827 !important;
 }
 
-/* Plotly modebar */
+/* Plotly toolbar */
 .modebar-btn path {
-    fill: #1E3A8A !important;
-    stroke: #1E3A8A !important;
+    fill: #111827 !important;
+    stroke: #111827 !important;
 }
 </style>
 """
