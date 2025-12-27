@@ -47,57 +47,38 @@ st.sidebar.markdown("""
 - Polinomial
 
 **Batas Integral**
-- Bilangan real (contoh: 0, 2.5, -1)
+- Bilangan real
 
 **Jumlah Subinterval**
-- Nilai n besar → akurasi meningkat
+- Semakin besar n → hasil lebih akurat
 """)
 
 # ======================================================
-# CSS TEMA (LENGKAP & STABIL)
+# CSS TEMA
 # ======================================================
 dark_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #0C132B; color: #E5EDFF; }
+[data-testid="stAppViewContainer"] { background-color: #0C132B; }
 [data-testid="stSidebar"] { background-color: #0F172A; border-right: 2px solid #1E3A8A; }
 h1,h2,h3,h4,h5,h6 { color: #93B4FF; }
 p, label, span, div { color: #E5EDFF; }
-
 input, textarea {
     background-color: #152044 !important;
     color: #E5EDFF !important;
     border: 1px solid #3E5FBF !important;
 }
-
 [data-baseweb="select"] > div {
     background-color: #152044 !important;
     color: #E5EDFF !important;
 }
-
 button {
     background-color: #1E3A8A !important;
     color: white !important;
 }
-
 [data-testid="stDataFrame"] {
     background-color: #0F172A;
     color: #E5EDFF;
 }
-
-/* File uploader - dark */
-[data-testid="stFileUploader"] section {
-    background-color: #152044 !important;
-    border: 2px dashed #3E5FBF !important;
-}
-[data-testid="stFileUploader"] label,
-[data-testid="stFileUploader"] small {
-    color: #E5EDFF !important;
-}
-[data-testid="stFileUploader"] button {
-    background-color: #1E3A8A !important;
-    color: white !important;
-}
-
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
@@ -109,41 +90,27 @@ button {
 
 light_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #F2F5FF; color: #0A1A40; }
+[data-testid="stAppViewContainer"] { background-color: #F2F5FF; }
 [data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
 h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
 p, label, span, div { color: #0A1A40; }
-
 input, textarea {
     background-color: white !important;
     color: #0A1A40 !important;
     border: 1px solid #1E3A8A !important;
 }
-
 [data-baseweb="select"] > div {
     background-color: white !important;
     color: #0A1A40 !important;
 }
-
 button {
     background-color: #1E40AF !important;
     color: white !important;
 }
-
-/* File uploader - light */
-[data-testid="stFileUploader"] section {
-    background-color: white !important;
-    border: 2px dashed #1E3A8A !important;
+[data-testid="stDataFrame"] {
+    background-color: white;
+    color: #0A1A40;
 }
-[data-testid="stFileUploader"] label,
-[data-testid="stFileUploader"] small {
-    color: #0A1A40 !important;
-}
-[data-testid="stFileUploader"] button {
-    background-color: #1E40AF !important;
-    color: white !important;
-}
-
 .result-box {
     background-color: #E9EEFF;
     border-left: 4px solid #1E3A8A;
@@ -172,19 +139,21 @@ n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
 # ======================================================
 # UPLOAD GAMBAR
 # ======================================================
-st.markdown("### 📷 Unggah Foto Soal (Opsional)")
+st.markdown("### 📷 Unggah Gambar Soal (Opsional)")
 uploaded = st.file_uploader("Unggah gambar (.png/.jpg)", ["png", "jpg", "jpeg"])
 if uploaded:
     img = Image.open(uploaded)
     st.image(img, caption="Gambar terunggah", use_container_width=True)
-    st.info("Ekstraksi otomatis masih bersifat pengembangan.")
+    st.info("Gambar digunakan sebagai referensi visual soal.")
 
 # ======================================================
-# PROSES PERHITUNGAN
+# PROSES
 # ======================================================
 if st.button("🔍 Hitung Integral"):
+
     try:
-        a_val, b_val = float(a), float(b)
+        a_val = float(a)
+        b_val = float(b)
     except ValueError:
         st.error("Batas integral harus berupa bilangan real.")
         st.stop()
@@ -198,8 +167,10 @@ if st.button("🔍 Hitung Integral"):
 
     f_num = sp.lambdify(x, f_sym, "numpy")
 
+    # Metode Titik Tengah
     h = (b_val - a_val) / n
-    data, total = [], 0.0
+    data = []
+    total = 0.0
 
     for i in range(n):
         xm = a_val + (i + 0.5) * h
@@ -208,7 +179,10 @@ if st.button("🔍 Hitung Integral"):
         total += area
         data.append([i + 1, xm, fxm, area])
 
-    df = pd.DataFrame(data, columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"])
+    df = pd.DataFrame(
+        data,
+        columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"]
+    )
 
     int_umum = sp.integrate(f_sym, x)
     int_tentu = sp.integrate(f_sym, (x, a_val, b_val))
@@ -231,29 +205,39 @@ if st.button("🔍 Hitung Integral"):
     st.dataframe(df, use_container_width=True)
 
     # ==================================================
-    # GRAFIK (STABIL)
+    # GRAFIK (FIX FINAL)
     # ==================================================
     try:
         xx = np.linspace(a_val, b_val, 400)
         yy = np.array(f_num(xx), dtype=float)
+
         mask = np.isfinite(yy)
+        xx = xx[mask]
+        yy = yy[mask]
 
-        fig = make_subplots()
-        fig.add_trace(go.Scatter(
-            x=xx[mask],
-            y=yy[mask],
-            mode="lines",
-            name="f(x)"
-        ))
+        if len(xx) == 0:
+            st.warning("Grafik tidak dapat ditampilkan karena fungsi tidak terdefinisi.")
+        else:
+            fig = make_subplots()
+            fig.add_trace(go.Scatter(
+                x=xx,
+                y=yy,
+                mode="lines",
+                name="f(x)",
+                line=dict(width=3)
+            ))
 
-        fig.update_layout(
-            template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
-            title="Grafik Fungsi f(x)",
-            xaxis_title="x",
-            yaxis_title="f(x)"
-        )
+            fig.update_layout(
+                template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
+                title="Grafik Fungsi f(x)",
+                xaxis_title="x",
+                yaxis_title="f(x)",
+                font=dict(
+                    color="#E5EDFF" if st.session_state.dark_mode else "#0A1A40"
+                )
+            )
 
-        st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True)
 
-    except:
-        st.warning("Grafik tidak dapat ditampilkan pada interval tersebut.")
+    except Exception:
+        st.error("Terjadi kesalahan saat menampilkan grafik.")
