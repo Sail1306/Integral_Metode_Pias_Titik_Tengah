@@ -5,7 +5,6 @@ import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
-
 # ======================================================
 # KONFIGURASI HALAMAN
 # ======================================================
@@ -16,13 +15,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-
 # ======================================================
 # STATE DARK MODE
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
-
 
 # ======================================================
 # SIDEBAR
@@ -55,9 +52,8 @@ st.sidebar.markdown("""
 - Semakin besar n → hasil lebih akurat
 """)
 
-
 # ======================================================
-# CSS TEMA
+# CSS TEMA (FIX IKON TOTAL)
 # ======================================================
 dark_css = """
 <style>
@@ -78,12 +74,9 @@ input, textarea {
     color: #E5EDFF !important;
 }
 
-/* Tombol Hitung Integral */
-div.stButton > button {
+button {
     background-color: #1E3A8A !important;
-    color: #E5EDFF !important;
-    border: 1px solid #3F66FF !important;
-    font-weight: 600;
+    color: #FFFFFF !important;
 }
 
 [data-testid="stDataFrame"] {
@@ -98,31 +91,59 @@ div.stButton > button {
     border-radius: 8px;
 }
 
-/* IKON */
-svg, path {
+/* ===== FIX VISIBILITAS IKON ===== */
+svg {
     fill: #E5EDFF !important;
-    stroke: #E5EDFF !important;
+    color: #E5EDFF !important;
 }
 
-/* Ikon header kanan atas */
-header svg,
-header svg path,
-[data-testid="stToolbar"] svg,
-[data-testid="stToolbar"] path {
+[data-baseweb="checkbox"] svg,
+[data-baseweb="radio"] svg {
+    fill: #93B4FF !important;
+}
+
+[data-testid="stFileUploader"] svg {
+    fill: #93B4FF !important;
+}
+
+[data-testid="stExpander"] svg {
     fill: #E5EDFF !important;
-    stroke: #E5EDFF !important;
+}
+
+.modebar-btn path {
+    fill: #E5EDFF !important;
 }
 </style>
 """
 
 light_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #F9FAFB; }
-[data-testid="stSidebar"] { background-color: #EEF2F7; border-right: 2px solid #1F2937; }
+/* ===============================
+   BACKGROUND (TERANG)
+================================ */
+[data-testid="stAppViewContainer"] {
+    background-color: #F9FAFB;
+}
 
-h1,h2,h3,h4,h5,h6 { color: #111827 !important; }
-p, label, span, div { color: #1F2937 !important; }
+[data-testid="stSidebar"] {
+    background-color: #EEF2F7;
+    border-right: 2px solid #1F2937;
+}
 
+/* ===============================
+   TEKS (GELAP – LAWAN DARK MODE)
+================================ */
+h1, h2, h3, h4, h5, h6 {
+    color: #111827 !important;
+}
+
+p, label, span, div {
+    color: #1F2937 !important;
+}
+
+/* ===============================
+   INPUT
+================================ */
 input, textarea {
     background-color: #FFFFFF !important;
     color: #111827 !important;
@@ -134,19 +155,25 @@ input, textarea {
     color: #111827 !important;
 }
 
-/* Tombol Hitung Integral */
-div.stButton > button {
-    background-color: #1F2937 !important;
+/* ===============================
+   BUTTON
+================================ */
+button {
+    background-color: #1E3A8A !important;
     color: #FFFFFF !important;
-    border: 1px solid #111827 !important;
-    font-weight: 600;
 }
 
+/* ===============================
+   DATAFRAME
+================================ */
 [data-testid="stDataFrame"] {
     background-color: #FFFFFF;
     color: #111827;
 }
 
+/* ===============================
+   RESULT BOX
+================================ */
 .result-box {
     background-color: #E5E7EB;
     border-left: 4px solid #1F2937;
@@ -155,8 +182,50 @@ div.stButton > button {
     color: #111827;
 }
 
-/* IKON */
-svg, path {
+/* ===============================
+   IKON (GELAP – OPPOSITE DARK MODE)
+================================ */
+
+/* Semua SVG */
+svg {
+    fill: #111827 !important;
+    stroke: #111827 !important;
+    color: #111827 !important;
+}
+
+/* Path */
+path {
+    fill: #111827 !important;
+    stroke: #111827 !important;
+}
+
+/* Checkbox & Radio */
+[data-baseweb="checkbox"] svg,
+[data-baseweb="radio"] svg {
+    fill: #1F2937 !important;
+    stroke: #1F2937 !important;
+}
+
+/* Number input spinner */
+[data-testid="stNumberInput"] button svg {
+    fill: #1F2937 !important;
+    stroke: #1F2937 !important;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] svg {
+    fill: #1F2937 !important;
+    stroke: #1F2937 !important;
+}
+
+/* Sidebar collapse */
+[data-testid="stSidebarCollapseButton"] svg {
+    fill: #111827 !important;
+    stroke: #111827 !important;
+}
+
+/* Plotly toolbar */
+.modebar-btn path {
     fill: #111827 !important;
     stroke: #111827 !important;
 }
@@ -165,13 +234,11 @@ svg, path {
 
 st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
 
-
 # ======================================================
 # JUDUL
 # ======================================================
 st.title("🔢 Kalkulator Integral Simbolik dan Numerik")
 st.subheader("Metode Pias Titik Tengah (Midpoint Rule)")
-
 
 # ======================================================
 # INPUT
@@ -181,11 +248,11 @@ a = st.text_input("Batas bawah (a):", "0")
 b = st.text_input("Batas atas (b):", "3")
 n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
 
-
 # ======================================================
 # PROSES
 # ======================================================
 if st.button("🔍 Hitung Integral"):
+
     a_val = float(a)
     b_val = float(b)
 
@@ -230,7 +297,8 @@ if st.button("🔍 Hitung Integral"):
         template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
         title="Grafik Fungsi f(x)",
         xaxis_title="x",
-        yaxis_title="f(x)"
+        yaxis_title="f(x)",
+        font=dict(color="#E5EDFF" if st.session_state.dark_mode else "#0A1A40")
     )
 
     st.plotly_chart(fig, use_container_width=True)
