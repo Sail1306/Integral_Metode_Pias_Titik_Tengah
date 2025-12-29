@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from PIL import Image
 
 # ======================================================
-# KONFIGURASI HALAMAN
+# MAIN PAGE
 # ======================================================
 st.set_page_config(
     page_title="Integral Solution – Metode Titik Tengah",
@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# STATE DARK MODE
+# DARK MODE
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
@@ -54,7 +54,7 @@ st.sidebar.markdown("""
 """)
 
 # ======================================================
-# CSS TEMA (FIX IKON TOTAL)
+# CSS
 # ======================================================
 dark_css = """
 <style>
@@ -92,7 +92,7 @@ button {
     border-radius: 8px;
 }
 
-/* ===== FIX VISIBILITAS IKON ===== */
+
 svg {
     fill: #E5EDFF !important;
     color: #E5EDFF !important;
