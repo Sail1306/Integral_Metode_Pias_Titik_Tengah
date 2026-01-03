@@ -10,7 +10,7 @@ from PIL import Image
 # MAIN PAGE
 # ======================================================
 st.set_page_config(
-    page_title="Integral Solution Tengah",
+    ppage_title="Integral Solution – Metode Titik Tengah",
     page_icon="📐",
     layout="centered",
     initial_sidebar_state="expanded"
@@ -160,7 +160,7 @@ st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_
 # ======================================================
 # JUDUL
 # ======================================================
-st.title("🔢 Kalkulator Integral Simbolik dan Numerik")
+st.title("🔢 Kalkulator Integral Simbolik & Numerik")
 st.subheader("Metode Pias Titik Tengah (Midpoint Rule)")
 
 # ======================================================
