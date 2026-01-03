@@ -10,7 +10,7 @@ from PIL import Image
 # MAIN PAGE
 # ======================================================
 st.set_page_config(
-    page_title="Integral Solution – Metode Titik Tengah",
+    page_title="Integral Solution Tengah",
     page_icon="📐",
     layout="centered",
     initial_sidebar_state="expanded"
