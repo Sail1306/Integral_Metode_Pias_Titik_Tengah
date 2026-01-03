@@ -160,7 +160,7 @@ st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_
 # ======================================================
 # JUDUL
 # ======================================================
-st.title("🔢 Kalkulator Integral Simbolik & Numerik")
+st.title("🔢 Kalkulator Integral")
 st.subheader("Metode Pias Titik Tengah (Midpoint Rule)")
 
 # ======================================================
