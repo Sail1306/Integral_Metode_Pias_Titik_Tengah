@@ -10,7 +10,7 @@ from PIL import Image
 # MAIN PAGE
 # ======================================================
 st.set_page_config(
-    ppage_title="Integral Solution – Metode Titik Tengah",
+    page_title="Integral Solution – Metode Titik Tengah",
     page_icon="📐",
     layout="centered",
     initial_sidebar_state="expanded"
@@ -60,59 +60,22 @@ dark_css = """
 <style>
 [data-testid="stAppViewContainer"] { background-color: #0C132B; }
 [data-testid="stSidebar"] { background-color: #0F172A; border-right: 2px solid #1E3A8A; }
-
 h1,h2,h3,h4,h5,h6 { color: #93B4FF; }
 p, label, span, div { color: #E5EDFF; }
-
 input, textarea {
     background-color: #152044 !important;
     color: #E5EDFF !important;
     border: 1px solid #3E5FBF !important;
 }
-
-[data-baseweb="select"] > div {
-    background-color: #152044 !important;
-    color: #E5EDFF !important;
-}
-
 button {
     background-color: #1E3A8A !important;
     color: #FFFFFF !important;
 }
-
-[data-testid="stDataFrame"] {
-    background-color: #0F172A;
-    color: #E5EDFF;
-}
-
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
-}
-
-
-svg {
-    fill: #E5EDFF !important;
-    color: #E5EDFF !important;
-}
-
-[data-baseweb="checkbox"] svg,
-[data-baseweb="radio"] svg {
-    fill: #93B4FF !important;
-}
-
-[data-testid="stFileUploader"] svg {
-    fill: #93B4FF !important;
-}
-
-[data-testid="stExpander"] svg {
-    fill: #E5EDFF !important;
-}
-
-.modebar-btn path {
-    fill: #E5EDFF !important;
 }
 </style>
 """
@@ -121,31 +84,17 @@ light_css = """
 <style>
 [data-testid="stAppViewContainer"] { background-color: #F2F5FF; }
 [data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
-
 h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
 p, label, span, div { color: #0A1A40; }
-
 input, textarea {
     background-color: white !important;
     color: #0A1A40 !important;
     border: 1px solid #1E3A8A !important;
 }
-
-[data-baseweb="select"] > div {
-    background-color: white !important;
-    color: #0A1A40 !important;
-}
-
 button {
     background-color: #1E40AF !important;
     color: white !important;
 }
-
-[data-testid="stDataFrame"] {
-    background-color: white;
-    color: #0A1A40;
-}
-
 .result-box {
     background-color: #E9EEFF;
     border-left: 4px solid #1E3A8A;
@@ -194,7 +143,10 @@ if st.button("🔍 Hitung Integral"):
         total += area
         data.append([i + 1, xm, fxm, area])
 
-    df = pd.DataFrame(data, columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"])
+    df = pd.DataFrame(
+        data,
+        columns=["Iterasi", "x Titik Tengah", "f(x)", "Luas Pias"]
+    )
 
     st.subheader("📌 Hasil Perhitungan")
 
@@ -214,14 +166,21 @@ if st.button("🔍 Hitung Integral"):
     mask = np.isfinite(yy)
 
     fig = make_subplots()
-    fig.add_trace(go.Scatter(x=xx[mask], y=yy[mask], mode="lines", name="f(x)"))
+    fig.add_trace(go.Scatter(
+        x=xx[mask],
+        y=yy[mask],
+        mode="lines",
+        name="f(x)"
+    ))
 
     fig.update_layout(
         template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
         title="Grafik Fungsi f(x)",
         xaxis_title="x",
         yaxis_title="f(x)",
-        font=dict(color="#E5EDFF" if st.session_state.dark_mode else "#0A1A40")
+        font=dict(
+            color="#E5EDFF" if st.session_state.dark_mode else "#0A1A40"
+        )
     )
 
     st.plotly_chart(fig, use_container_width=True)
