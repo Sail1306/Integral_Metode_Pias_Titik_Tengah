@@ -87,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 /* HEADER ATAS – REVISI SESUAI GAMBAR 2 */
 /* ================================================= */
 header[data-testid="stHeader"] {
-    background-color: #0B122B !important;   /* warna gelap solid */
+    background-color: #0B122B !important;
     border-bottom: 1px solid rgba(255,255,255,0.08) !important;
 }
 
@@ -104,9 +104,34 @@ header[data-testid="stHeader"] button:hover {
     background: rgba(255,255,255,0.15) !important;
 }
 
-/* icon header */
+/* ================================================= */
+/* ICON HEADER (AWAL – TETAP DIPERTAHANKAN) */
+/* ================================================= */
 header[data-testid="stHeader"] svg {
     fill: #E5E7EB !important;
+}
+
+/* ================================================= */
+/* FIX IKON HEADER TIDAK TERLIHAT (DARK MODE) */
+/* TAMBAHAN – TANPA MENGUBAH REVISI SEBELUMNYA */
+/* ================================================= */
+
+/* semua svg di header */
+header[data-testid="stHeader"] svg {
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+/* ikon di dalam tombol */
+header[data-testid="stHeader"] button svg {
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+/* ikon menu lain (Deploy, titik tiga, dll) */
+header[data-testid="stHeader"] [role="button"] svg {
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
 }
 
 /* ================================================= */
