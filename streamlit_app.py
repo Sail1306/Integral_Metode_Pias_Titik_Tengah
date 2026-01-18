@@ -30,16 +30,25 @@ st.session_state.dark_mode = st.sidebar.checkbox(
     value=st.session_state.dark_mode
 )
 
-st.sidebar.markdown("## 📘 Panduan Penulisan Input")
-st.sidebar.markdown("""
-**Penulisan Fungsi**
-- Gunakan variabel `x`
-- Operator: `+ - * / **`
-- Contoh:
-  - `x**2 + 3*x`
-  - `sin(x)`
-  - `exp(x)`
-""")
+st.sidebar.markdown("## 📘 Panduan Penulisan Input") 
+st.sidebar.markdown(""" **Penulisan Fungsi** 
+- Gunakan variabel x 
+- Operator: + - * / ** 
+- Contoh: 
+- x**2 + 3*x 
+- sin(x) 
+- exp(x) 
+
+**Fungsi Didukung** 
+- sin, cos, tan 
+- exp, log 
+- Polinomial 
+
+**Batas Integral** 
+- Bilangan real 
+
+**Jumlah Subinterval** 
+- Semakin besar n → hasil lebih akurat """)
 
 # ======================================================
 # CSS (MODE GELAP – TOOLBAR TANPA KOTAK)
