@@ -72,6 +72,15 @@ dark_css = """
     border-right: 2px solid #1E3A8A;
 }
 
+st.sidebar.markdown(
+    """
+    <div class="sidebar-footer">
+        Made with ❤️ by <b>Your Name</b>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 /* ================================================= */
 /* TEXT */
 /* ================================================= */
@@ -171,12 +180,6 @@ button:hover {
     box-shadow: none !important;
 }
 
-/* ================================================= */
-/* 🔥 FORCE IKON HEADER PUTIH – BLOK TERKUAT */
-/* (DITAMBAHKAN, TANPA MENGUBAH REVISI LAIN) */
-/* ================================================= */
-
-/* paksa semua warna teks & ikon di header */
 header[data-testid="stHeader"],
 header[data-testid="stHeader"] * {
     color: #FFFFFF !important;
