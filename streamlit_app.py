@@ -39,21 +39,10 @@ st.sidebar.markdown("""
   - `x**2 + 3*x`
   - `sin(x)`
   - `exp(x)`
-
-**Fungsi Didukung**
-- sin, cos, tan
-- exp, log
-- Polinomial
-
-**Batas Integral**
-- Bilangan real
-
-**Jumlah Subinterval**
-- Semakin besar n → hasil lebih akurat
 """)
 
 # ======================================================
-# CSS (TERMASUK PERBAIKAN TOOLBAR GRAFIK)
+# CSS (MODE GELAP – TOOLBAR TANPA KOTAK)
 # ======================================================
 dark_css = """
 <style>
@@ -68,7 +57,7 @@ dark_css = """
     border-right: 2px solid #1E3A8A;
 }
 
-/* ===== TEKS KONTEN ===== */
+/* ===== TEKS ===== */
 html, body, p, span, label, div, li {
     color: #FFFFFF !important;
 }
@@ -97,9 +86,6 @@ button {
 button:hover {
     background-color: #2F3E8F !important;
 }
-button svg {
-    fill: #FFFFFF !important;
-}
 
 /* ===== RESULT BOX ===== */
 .result-box {
@@ -107,35 +93,40 @@ button svg {
     border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
-    color: #FFFFFF !important;
 }
 
-/* ===== TOOLBAR GRAFIK PLOTLY ===== */
+/* =====================================================
+   TOOLBAR PLOTLY (HILANGKAN KOTAK IKON)
+   ===================================================== */
 .plotly .modebar {
     background: transparent !important;
     display: flex !important;
     justify-content: center !important;
-    gap: 6px !important;
+    gap: 10px !important;
     padding: 6px 0 !important;
 }
 
+/* Tombol ikon tanpa background */
 .plotly .modebar-btn {
-    background-color: #1F2A5A !important;
-    border-radius: 8px !important;
-    padding: 6px 8px !important;
-    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 4px !important;
 }
 
+/* Ikon */
 .plotly .modebar-btn svg {
     fill: #FFFFFF !important;
     width: 16px !important;
     height: 16px !important;
 }
 
+/* Hover hanya efek transparan ringan */
 .plotly .modebar-btn:hover {
-    background-color: #2F3E8F !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 6px !important;
 }
 
+/* Tooltip */
 .plotly .modebar-btn .modebar-btn-tooltip {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -145,19 +136,7 @@ button svg {
 </style>
 """
 
-light_css = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-color: #F2F5FF;
-}
-[data-testid="stSidebar"] {
-    background-color: #EEF2FF;
-    border-right: 2px solid #1E3A8A;
-}
-</style>
-"""
-
-st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
+st.markdown(dark_css, unsafe_allow_html=True)
 
 # ======================================================
 # JUDUL
@@ -201,8 +180,6 @@ if st.button("🔍 Hitung Integral"):
     )
 
     st.subheader("📌 Hasil Perhitungan")
-
-    st.markdown("<div class='result-box'><b>Metode Titik Tengah</b></div>", unsafe_allow_html=True)
     st.write(f"Nilai pendekatan numerik = **{total}**")
 
     st.dataframe(df, use_container_width=True)
@@ -212,7 +189,6 @@ if st.button("🔍 Hitung Integral"):
 
     fig = make_subplots()
     fig.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
-
     fig.update_layout(
         template="plotly_dark",
         title="Grafik Fungsi f(x)",
