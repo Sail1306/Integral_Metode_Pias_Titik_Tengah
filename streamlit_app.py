@@ -10,7 +10,7 @@ from PIL import Image
 # MAIN PAGE
 # ======================================================
 st.set_page_config(
-    page_title="Integral Solution – Metode Pias Titik Tengah",
+    page_title="Integral Solution – Metode Titik Tengah",
     page_icon="📐",
     layout="centered",
     initial_sidebar_state="expanded"
@@ -54,45 +54,30 @@ st.sidebar.markdown("""
 """)
 
 # ======================================================
-# CSS
+# CSS (REVISI WARNA SESUAI TOOLBAR KUNING)
 # ======================================================
 dark_css = """
 <style>
-/* ===== BACKGROUND ===== */
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
-
-/* ===== SIDEBAR ===== */
 [data-testid="stSidebar"] {
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
-
-/* ===== TEKS UTAMA (DIPAKSA PUTIH) ===== */
-html, body, p, span, label, div, li {
-    color: #FFFFFF !important;
+h1,h2,h3,h4,h5,h6 {
+    color: #93B4FF;
 }
-
-/* ===== JUDUL ===== */
-h1, h2, h3, h4, h5, h6 {
-    color: #E6ECFF !important;
+p, label, span, div {
+    color: #E5EDFF;
 }
-
-/* ===== INPUT ===== */
 input, textarea {
     background-color: #152044 !important;
-    color: #FFFFFF !important;
+    color: #E5EDFF !important;
     border: 1px solid #3E5FBF !important;
 }
 
-/* ===== DATAFRAME ===== */
-[data-testid="stDataFrame"] div {
-    color: #FFFFFF !important;
-    background-color: #0F172A !important;
-}
-
-/* ===== TOMBOL (SESUAI TOOLBAR KUNING) ===== */
+/* ===== TOMBOL UTAMA (DISAMAKAN DENGAN TOOLBAR) ===== */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -105,22 +90,19 @@ button:hover {
     background-color: #2F3E8F !important;
 }
 
-/* ===== IKON TOMBOL ===== */
+/* Ikon tombol */
 button svg {
     fill: #FFFFFF !important;
 }
 
-/* ===== RESULT BOX ===== */
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
-    color: #FFFFFF !important;
 }
 </style>
 """
-
 
 light_css = """
 <style>
@@ -143,6 +125,7 @@ input, textarea {
     border: 1px solid #1E3A8A !important;
 }
 
+/* ===== TOMBOL UTAMA (DISAMAKAN DENGAN TOOLBAR) ===== */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
