@@ -57,90 +57,117 @@ st.sidebar.markdown("""
 # ======================================================
 dark_css = """
 <style>
-
-/* =============================== */
-/* ROOT APP (PALING KUAT) */
-/* =============================== */
-.stApp,
-[data-testid="stAppViewContainer"] > section {
-    background: linear-gradient(180deg, #0B122B 0%, #0E163A 100%) !important;
+/* ================================================= */
+/* APP BACKGROUND */
+/* ================================================= */
+[data-testid="stAppViewContainer"] {
+    background-color: #0C132B;
 }
 
-/* =============================== */
+/* ================================================= */
 /* SIDEBAR */
-/* =============================== */
-[data-testid="stSidebar"] > div:first-child {
-    background: linear-gradient(180deg, #0A1026 0%, #0E1538 100%) !important;
-    border-right: 1px solid rgba(255,255,255,0.08) !important;
+/* ================================================= */
+[data-testid="stSidebar"] {
+    background-color: #0F172A;
+    border-right: 2px solid #1E3A8A;
 }
 
-/* =============================== */
-/* TEKS */
-/* =============================== */
-.stApp * {
-    color: #E5E7EB !important;
-}
-
-.stApp h1,
-.stApp h2,
-.stApp h3,
-.stApp h4,
-.stApp h5,
-.stApp h6 {
-    color: #F9FAFB !important;
-}
-
-/* =============================== */
-/* INPUT (BASEWEB – KUNCI) */
-/* =============================== */
-div[data-baseweb="input"] input,
-div[data-baseweb="textarea"] textarea {
-    background: rgba(255,255,255,0.06) !important;
+/* ================================================= */
+/* TEXT */
+/* ================================================= */
+html, body, p, span, label, div, li {
     color: #FFFFFF !important;
-    border: 1px solid rgba(255,255,255,0.25) !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
 }
 
-/* Fokus input */
-div[data-baseweb="input"] input:focus,
-div[data-baseweb="textarea"] textarea:focus {
-    border: 1px solid rgba(255,255,255,0.5) !important;
-    outline: none !important;
+h1, h2, h3, h4, h5, h6 {
+    color: #E6ECFF !important;
 }
 
-/* =============================== */
-/* BUTTON */
-/* =============================== */
-.stApp button {
-    background: rgba(255,255,255,0.08) !important;
-    color: #FFFFFF !important;
-    border: 1px solid rgba(255,255,255,0.25) !important;
-    border-radius: 12px !important;
-}
-
-.stApp button:hover {
-    background: rgba(255,255,255,0.15) !important;
-}
-
-/* =============================== */
-/* HEADER */
-/* =============================== */
+/* ================================================= */
+/* HEADER ATAS – REVISI SESUAI GAMBAR 2 */
+/* ================================================= */
 header[data-testid="stHeader"] {
-    background: #0B122B !important;
+    background-color: #0B122B !important;   /* warna gelap solid */
     border-bottom: 1px solid rgba(255,255,255,0.08) !important;
 }
 
-/* =============================== */
-/* PLOTLY */
-/* =============================== */
-.plotly .modebar,
+/* tombol kanan header (Share, dll) */
+header[data-testid="stHeader"] button {
+    background: rgba(255,255,255,0.08) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+/* hover tombol header */
+header[data-testid="stHeader"] button:hover {
+    background: rgba(255,255,255,0.15) !important;
+}
+
+/* icon header */
+header[data-testid="stHeader"] svg {
+    fill: #E5E7EB !important;
+}
+
+/* ================================================= */
+/* INPUT */
+/* ================================================= */
+input, textarea {
+    background-color: #152044 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ================================================= */
+/* BUTTON */
+/* ================================================= */
+button {
+    background-color: #1F2A5A !important;
+    color: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 0.6em 1.3em !important;
+    font-weight: 600 !important;
+}
+
+button:hover {
+    background-color: #2F3E8F !important;
+}
+
+/* ================================================= */
+/* RESULT BOX */
+/* ================================================= */
+.result-box {
+    background-color: #10182F;
+    border-left: 4px solid #3F66FF;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* ================================================= */
+/* PLOTLY TOOLBAR */
+/* ================================================= */
+.plotly .modebar {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
 .plotly .modebar-btn {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
 }
 
+.plotly .modebar-btn:hover,
+.plotly .modebar-btn:focus,
+.plotly .modebar-btn:focus-visible,
+.plotly .modebar-btn:active {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
 </style>
 """
 
