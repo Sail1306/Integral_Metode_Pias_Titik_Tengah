@@ -53,104 +53,126 @@ st.sidebar.markdown("""
 """)
 
 # ======================================================
-# CSS MODE GELAP
+# CSS MODE GELAP (WARNA DINETRALKAN)
 # ======================================================
 dark_css = """
 <style>
+/* ===== APP & SIDEBAR ===== */
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
 [data-testid="stSidebar"] {
     background-color: #0F172A;
-    border-right: 2px solid #1E3A8A;
+    border-right: 1px solid #9CA3AF;
 }
+
+/* ===== TEKS ===== */
 html, body, p, span, label, div, li {
     color: #FFFFFF !important;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: #E6ECFF !important;
+    color: #F9FAFB !important;
 }
+
+/* ===== INPUT ===== */
 input, textarea {
-    background-color: #152044 !important;
-    color: #FFFFFF !important;
-    border: 1px solid #3E5FBF !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #9CA3AF !important;
 }
+
+/* ===== TOOLBAR ATAS STREAMLIT ===== */
+header, [data-testid="stHeader"] {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #9CA3AF !important;
+}
+header svg {
+    fill: #374151 !important;
+}
+
+/* ===== SIDEBAR TOOLBAR / CHECKBOX ===== */
+[data-testid="stSidebar"] button,
+[data-testid="stSidebar"] input[type="checkbox"] + div {
+    background-color: #FFFFFF !important;
+    border: 1px solid #9CA3AF !important;
+    color: #111827 !important;
+}
+
+/* ===== TOMBOL UTAMA (NETRAL) ===== */
 button {
-    background-color: #1F2A5A !important;
-    color: #FFFFFF !important;
-    border-radius: 10px !important;
-    border: none !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #9CA3AF !important;
+    border-radius: 8px !important;
     padding: 0.6em 1.3em !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 button:hover {
-    background-color: #2F3E8F !important;
+    background-color: #F3F4F6 !important;
 }
+
+/* ===== RESULT BOX ===== */
 .result-box {
-    background-color: #10182F;
-    border-left: 4px solid #3F66FF;
+    background-color: #111827;
+    border-left: 4px solid #9CA3AF;
     padding: 12px;
     border-radius: 8px;
 }
 
-/* Toolbar Plotly – tanpa kotak (dark mode) */
+/* ===== TOOLBAR PLOTLY (MINIMAL) ===== */
 .plotly .modebar {
     background: transparent !important;
-    display: flex !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    padding: 6px 0 !important;
 }
 .plotly .modebar-btn {
     background: transparent !important;
     border: none !important;
-    padding: 4px !important;
 }
 .plotly .modebar-btn svg {
     fill: #FFFFFF !important;
-    width: 16px !important;
-    height: 16px !important;
-}
-.plotly .modebar-btn:hover {
-    background: rgba(255,255,255,0.08) !important;
-    border-radius: 6px !important;
 }
 </style>
 """
 
 # ======================================================
-# CSS MODE TERANG
+# CSS MODE TERANG (WARNA DINETRALKAN)
 # ======================================================
 light_css = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-color: #F2F5FF;
+    background-color: #F9FAFB;
 }
 [data-testid="stSidebar"] {
-    background-color: #EEF2FF;
-    border-right: 2px solid #1E3A8A;
+    background-color: #FFFFFF;
+    border-right: 1px solid #9CA3AF;
 }
 html, body, p, span, label, div, li {
-    color: #0A1A40 !important;
+    color: #111827 !important;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: #1E3A8A !important;
+    color: #111827 !important;
 }
 input, textarea {
     background-color: #FFFFFF !important;
-    color: #0A1A40 !important;
-    border: 1px solid #1E3A8A !important;
+    color: #111827 !important;
+    border: 1px solid #9CA3AF !important;
 }
+
+/* Toolbar atas */
+header, [data-testid="stHeader"] {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #9CA3AF !important;
+}
+
+/* Tombol utama */
 button {
-    background-color: #1E40AF !important;
-    color: #FFFFFF !important;
-    border-radius: 10px !important;
-    border: none !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #9CA3AF !important;
+    border-radius: 8px !important;
     padding: 0.6em 1.3em !important;
-    font-weight: 600 !important;
 }
 button:hover {
-    background-color: #1D4ED8 !important;
+    background-color: #E5E7EB !important;
 }
 </style>
 """
