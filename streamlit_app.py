@@ -200,12 +200,20 @@ button:hover {
     background-color: #F3F4F6 !important;
 }
 
+/* =============================================== */
+/* FIX FINAL: HILANGKAN OUTLINE CHECKBOX MODE GELAP */
+/* =============================================== */
 [data-testid="stSidebar"] div[data-baseweb="checkbox"] {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
+[data-testid="stSidebar"] div[data-baseweb="checkbox"] * {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
 </style>
 """
 
