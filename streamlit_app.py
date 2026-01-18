@@ -53,8 +53,9 @@ st.sidebar.markdown("""
 """)
 
 # ======================================================
-# CSS MODE GELAP (SAMA SEPERTI SEBELUMNYA)
+# CSS MODE GELAP 
 # ======================================================
+
 dark_css = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -64,17 +65,40 @@ dark_css = """
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
+
+/* Teks */
 html, body, p, span, label, div, li {
     color: #FFFFFF !important;
 }
 h1, h2, h3, h4, h5, h6 {
     color: #E6ECFF !important;
 }
+
+/* Input – HILANGKAN GARIS HITAM */
 input, textarea {
     background-color: #152044 !important;
     color: #FFFFFF !important;
-    border: 1px solid #3E5FBF !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
+
+/* Wrapper input Streamlit (penyebab outline hitam) */
+div[data-baseweb="input"] *,
+div[data-baseweb="textarea"] * {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Saat fokus */
+input:focus,
+textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Tombol */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -86,6 +110,8 @@ button {
 button:hover {
     background-color: #2F3E8F !important;
 }
+
+/* Box hasil */
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
@@ -111,8 +137,9 @@ button:hover {
 </style>
 """
 
+
 # ======================================================
-# CSS MODE TERANG (NETRAL PUTIH + OUTLINE ABU)
+# CSS MODE TERANG 
 # ======================================================
 light_css = """
 <style>
