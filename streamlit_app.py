@@ -55,26 +55,25 @@ st.sidebar.markdown("""
 # ======================================================
 # CSS MODE GELAP 
 # ======================================================
-
 dark_css = """
 <style>
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
+
 [data-testid="stSidebar"] {
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
 
-/* Teks */
 html, body, p, span, label, div, li {
     color: #FFFFFF !important;
 }
+
 h1, h2, h3, h4, h5, h6 {
     color: #E6ECFF !important;
 }
 
-/* Input – HILANGKAN GARIS HITAM */
 input, textarea {
     background-color: #152044 !important;
     color: #FFFFFF !important;
@@ -83,22 +82,6 @@ input, textarea {
     box-shadow: none !important;
 }
 
-/* Wrapper input Streamlit (penyebab outline hitam) */
-div[data-baseweb="input"] *,
-div[data-baseweb="textarea"] * {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-/* Saat fokus */
-input:focus,
-textarea:focus {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-/* Tombol */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -107,11 +90,11 @@ button {
     padding: 0.6em 1.3em !important;
     font-weight: 600 !important;
 }
+
 button:hover {
     background-color: #2F3E8F !important;
 }
 
-/* Box hasil */
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
@@ -119,24 +102,32 @@ button:hover {
     border-radius: 8px;
 }
 
-/* Plotly toolbar – dark mode tanpa kotak */
+/* ===================================== */
+/* FIX: HILANGKAN OUTLINE TOOLBAR PLOTLY */
+/* ===================================== */
 .plotly .modebar {
     background: transparent !important;
+    box-shadow: none !important;
 }
+
 .plotly .modebar-btn {
     background: transparent !important;
     border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
-.plotly .modebar-btn svg {
-    fill: #FFFFFF !important;
-}
-.plotly .modebar-btn:hover {
-    background: rgba(255,255,255,0.08) !important;
-    border-radius: 6px !important;
+
+.plotly .modebar-btn:hover,
+.plotly .modebar-btn:focus,
+.plotly .modebar-btn:focus-visible,
+.plotly .modebar-btn:active {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 </style>
 """
-
 
 # ======================================================
 # CSS MODE TERANG 
@@ -161,7 +152,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #111827 !important;
 }
 
-/* Toolbar */
+/* Header */
 header, [data-testid="stHeader"] {
     background-color: #FFFFFF !important;
     border-bottom: 1px solid #9CA3AF !important;
@@ -185,48 +176,37 @@ button {
     border: 1px solid #9CA3AF !important;
     border-radius: 8px !important;
     padding: 0.6em 1.3em !important;
+    font-weight: 500 !important;
 }
 
 button:hover {
     background-color: #F3F4F6 !important;
 }
 
-/* ===================================================== */
-/* FIX FINAL MUTLAK: OUTLINE CHECKBOX MODE GELAP SIDEBAR */
-/* ===================================================== */
+/* ================================================= */
+/* FIX LIGHT MODE: HILANGKAN OUTLINE TOOLBAR PLOTLY */
+/* ================================================= */
 
-/* Wrapper utama */
-[data-testid="stSidebar"] div[data-baseweb="checkbox"] {
+.plotly .modebar {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.plotly .modebar-btn {
+    background: transparent !important;
     border: none !important;
-    outline: none !important;
     box-shadow: none !important;
+    outline: none !important;
 }
 
-/* Semua anak */
-[data-testid="stSidebar"] div[data-baseweb="checkbox"] * {
+.plotly .modebar-btn:hover,
+.plotly .modebar-btn:focus,
+.plotly .modebar-btn:focus-visible,
+.plotly .modebar-btn:active {
+    background: transparent !important;
     border: none !important;
-    outline: none !important;
     box-shadow: none !important;
-}
-
-/* Saat focus / active / hover */
-[data-testid="stSidebar"] div[data-baseweb="checkbox"]:focus,
-[data-testid="stSidebar"] div[data-baseweb="checkbox"]:focus-visible,
-[data-testid="stSidebar"] div[data-baseweb="checkbox"]:active {
     outline: none !important;
-    box-shadow: none !important;
-}
-
-/* Label internal */
-[data-testid="stSidebar"] div[data-baseweb="checkbox"] label {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-/* DIV yang sering jadi sumber outline */
-[data-testid="stSidebar"] div[data-baseweb="checkbox"] div {
-    outline: none !important;
-    box-shadow: none !important;
 }
 </style>
 """
