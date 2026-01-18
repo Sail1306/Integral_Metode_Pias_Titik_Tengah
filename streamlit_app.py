@@ -52,6 +52,15 @@ st.sidebar.markdown("""
 - Semakin besar n → hasil lebih akurat
 """)
 
+st.sidebar.markdown(
+    """
+    <div class="sidebar-footer">
+        Made with ❤️ by <b>Your Name</b>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 # ======================================================
 # CSS MODE GELAP 
 # ======================================================
@@ -71,15 +80,6 @@ dark_css = """
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
-
-st.sidebar.markdown(
-    """
-    <div class="sidebar-footer">
-        Made with ❤️ by <b>Your Name</b>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 
 /* ================================================= */
 /* TEXT */
