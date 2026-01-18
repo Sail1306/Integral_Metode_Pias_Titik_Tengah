@@ -57,54 +57,104 @@ st.sidebar.markdown("""
 # ======================================================
 dark_css = """
 <style>
+/* =============================== */
+/* BACKGROUND UTAMA */
+/* =============================== */
 [data-testid="stAppViewContainer"] {
-    background-color: #0C132B;
+    background: linear-gradient(180deg, #0B122B 0%, #0E163A 100%);
 }
 
+/* =============================== */
+/* SIDEBAR */
+/* =============================== */
 [data-testid="stSidebar"] {
-    background-color: #0F172A;
-    border-right: 2px solid #1E3A8A;
+    background: linear-gradient(180deg, #0A1026 0%, #0E1538 100%);
+    border-right: 1px solid rgba(255,255,255,0.08);
 }
 
+/* =============================== */
+/* TEKS */
+/* =============================== */
 html, body, p, span, label, div, li {
-    color: #FFFFFF !important;
+    color: #E5E7EB !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #E6ECFF !important;
+    color: #F9FAFB !important;
 }
 
+/* =============================== */
+/* HEADER ATAS */
+/* =============================== */
+header, [data-testid="stHeader"] {
+    background: #0B122B !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+header svg {
+    fill: #E5E7EB !important;
+}
+
+/* =============================== */
+/* INPUT FIELD */
+/* =============================== */
 input, textarea {
-    background-color: #152044 !important;
+    background: rgba(255,255,255,0.06) !important;
     color: #FFFFFF !important;
-    border: none !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
+    border-radius: 10px !important;
+    padding: 0.6em 0.8em !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255,255,255,0.6) !important;
+}
+
+input:focus,
+textarea:focus {
     outline: none !important;
     box-shadow: none !important;
+    border: 1px solid rgba(255,255,255,0.5) !important;
 }
 
+/* =============================== */
+/* BUTTON */
+/* =============================== */
 button {
-    background-color: #1F2A5A !important;
+    background: rgba(255,255,255,0.08) !important;
     color: #FFFFFF !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
     border-radius: 10px !important;
-    border: none !important;
     padding: 0.6em 1.3em !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 button:hover {
-    background-color: #2F3E8F !important;
+    background: rgba(255,255,255,0.15) !important;
 }
 
+/* =============================== */
+/* NUMBER INPUT (+ / -) */
+/* =============================== */
+[data-testid="stNumberInput"] button {
+    background: rgba(255,255,255,0.08) !important;
+    border: none !important;
+    color: #FFFFFF !important;
+}
+
+/* =============================== */
+/* RESULT BOX */
+/* =============================== */
 .result-box {
-    background-color: #10182F;
-    border-left: 4px solid #3F66FF;
-    padding: 12px;
-    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    border-left: 4px solid #60A5FA;
+    border-radius: 10px;
 }
 
-/* ===================================== */
-/* FIX: HILANGKAN OUTLINE TOOLBAR PLOTLY */
-/* ===================================== */
+/* =============================== */
+/* GRAFIK */
+/* =============================== */
 .plotly .modebar {
     background: transparent !important;
     box-shadow: none !important;
@@ -114,17 +164,6 @@ button:hover {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    outline: none !important;
-}
-
-.plotly .modebar-btn:hover,
-.plotly .modebar-btn:focus,
-.plotly .modebar-btn:focus-visible,
-.plotly .modebar-btn:active {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
 }
 </style>
 """
