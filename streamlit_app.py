@@ -83,7 +83,7 @@ input, textarea {
     border: 1px solid #3E5FBF !important;
 }
 
-/* ===== TOMBOL UTAMA ===== */
+/* ===== TOMBOL ===== */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -104,9 +104,7 @@ button:hover {
     border-radius: 8px;
 }
 
-/* =====================================================
-   TOOLBAR PLOTLY (HILANGKAN KOTAK IKON)
-   ===================================================== */
+/* ===== PLOTLY MODEBAR (TANPA KOTAK) ===== */
 .plotly .modebar {
     background: transparent !important;
     display: flex !important;
@@ -115,27 +113,23 @@ button:hover {
     padding: 6px 0 !important;
 }
 
-/* Tombol ikon tanpa background */
 .plotly .modebar-btn {
     background: transparent !important;
     border: none !important;
     padding: 4px !important;
 }
 
-/* Ikon */
 .plotly .modebar-btn svg {
     fill: #FFFFFF !important;
     width: 16px !important;
     height: 16px !important;
 }
 
-/* Hover hanya efek transparan ringan */
 .plotly .modebar-btn:hover {
     background: rgba(255, 255, 255, 0.08) !important;
     border-radius: 6px !important;
 }
 
-/* Tooltip */
 .plotly .modebar-btn .modebar-btn-tooltip {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -144,6 +138,46 @@ button:hover {
 }
 </style>
 """
+
+light_css = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-color: #F2F5FF;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #EEF2FF;
+    border-right: 2px solid #1E3A8A;
+}
+
+html, body, p, span, label, div, li {
+    color: #0A1A40 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1E3A8A !important;
+}
+
+input, textarea {
+    background-color: #FFFFFF !important;
+    color: #0A1A40 !important;
+    border: 1px solid #1E3A8A !important;
+}
+
+button {
+    background-color: #1E40AF !important;
+    color: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 0.6em 1.3em !important;
+    font-weight: 600 !important;
+}
+button:hover {
+    background-color: #1D4ED8 !important;
+}
+</style>
+"""
+
 
 st.markdown(dark_css, unsafe_allow_html=True)
 
