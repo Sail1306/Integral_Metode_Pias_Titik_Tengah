@@ -58,25 +58,41 @@ st.sidebar.markdown("""
 # ======================================================
 dark_css = """
 <style>
+/* ===== BACKGROUND ===== */
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
+
+/* ===== SIDEBAR ===== */
 [data-testid="stSidebar"] {
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
-h1,h2,h3,h4,h5,h6 {
-    color: #93B4FF;
+
+/* ===== TEKS UTAMA (DIPAKSA PUTIH) ===== */
+html, body, p, span, label, div, li {
+    color: #FFFFFF !important;
 }
-p, label, span, div {
-    color: #E5EDFF;
+
+/* ===== JUDUL ===== */
+h1, h2, h3, h4, h5, h6 {
+    color: #E6ECFF !important;
 }
+
+/* ===== INPUT ===== */
 input, textarea {
     background-color: #152044 !important;
-    color: #E5EDFF !important;
+    color: #FFFFFF !important;
     border: 1px solid #3E5FBF !important;
 }
 
+/* ===== DATAFRAME ===== */
+[data-testid="stDataFrame"] div {
+    color: #FFFFFF !important;
+    background-color: #0F172A !important;
+}
+
+/* ===== TOMBOL (SESUAI TOOLBAR KUNING) ===== */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -89,19 +105,22 @@ button:hover {
     background-color: #2F3E8F !important;
 }
 
-/* Ikon tombol */
+/* ===== IKON TOMBOL ===== */
 button svg {
     fill: #FFFFFF !important;
 }
 
+/* ===== RESULT BOX ===== */
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
+    color: #FFFFFF !important;
 }
 </style>
 """
+
 
 light_css = """
 <style>
