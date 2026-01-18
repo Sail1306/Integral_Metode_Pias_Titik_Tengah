@@ -105,33 +105,10 @@ header[data-testid="stHeader"] button:hover {
 }
 
 /* ================================================= */
-/* ICON HEADER (AWAL – TETAP DIPERTAHANKAN) */
+/* ICON HEADER – ATURAN AWAL (DIPERTAHANKAN) */
 /* ================================================= */
 header[data-testid="stHeader"] svg {
     fill: #E5E7EB !important;
-}
-
-/* ================================================= */
-/* FIX IKON HEADER TIDAK TERLIHAT (DARK MODE) */
-/* TAMBAHAN – TANPA MENGUBAH REVISI SEBELUMNYA */
-/* ================================================= */
-
-/* semua svg di header */
-header[data-testid="stHeader"] svg {
-    fill: #FFFFFF !important;
-    stroke: #FFFFFF !important;
-}
-
-/* ikon di dalam tombol */
-header[data-testid="stHeader"] button svg {
-    fill: #FFFFFF !important;
-    stroke: #FFFFFF !important;
-}
-
-/* ikon menu lain (Deploy, titik tiga, dll) */
-header[data-testid="stHeader"] [role="button"] svg {
-    fill: #FFFFFF !important;
-    stroke: #FFFFFF !important;
 }
 
 /* ================================================= */
@@ -193,6 +170,30 @@ button:hover {
     border: none !important;
     box-shadow: none !important;
 }
+
+/* ================================================= */
+/* 🔥 FORCE IKON HEADER PUTIH – BLOK TERKUAT */
+/* (DITAMBAHKAN, TANPA MENGUBAH REVISI LAIN) */
+/* ================================================= */
+
+/* paksa semua warna teks & ikon di header */
+header[data-testid="stHeader"],
+header[data-testid="stHeader"] * {
+    color: #FFFFFF !important;
+}
+
+/* SVG yang pakai currentColor */
+header[data-testid="stHeader"] svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+}
+
+/* ikon berbasis img / mask */
+header[data-testid="stHeader"] img,
+header[data-testid="stHeader"] svg {
+    filter: brightness(0) invert(1) !important;
+}
+
 </style>
 """
 
