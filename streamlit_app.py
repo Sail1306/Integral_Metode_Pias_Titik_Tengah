@@ -16,7 +16,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# STATE MODE GELAP
+# STATE MODE
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
@@ -30,60 +30,51 @@ st.session_state.dark_mode = st.sidebar.checkbox(
     value=st.session_state.dark_mode
 )
 
-st.sidebar.markdown("## 📘 Panduan Penulisan Input") 
-st.sidebar.markdown(""" **Penulisan Fungsi** 
-- Gunakan variabel x 
-- Operator: + - * / ** 
-- Contoh: 
-- x**2 + 3*x 
-- sin(x) 
-- exp(x) 
+st.sidebar.markdown("## 📘 Panduan Penulisan Input")
+st.sidebar.markdown("""
+**Penulisan Fungsi**
+- Gunakan variabel `x`
+- Operator: `+ - * / **`
+- Contoh:
+  - `x**2 + 3*x`
+  - `sin(x)`
+  - `exp(x)`
 
-**Fungsi Didukung** 
-- sin, cos, tan 
-- exp, log 
-- Polinomial 
+**Fungsi Didukung**
+- sin, cos, tan  
+- exp, log  
+- Polinomial  
 
-**Batas Integral** 
-- Bilangan real 
+**Batas Integral**
+- Bilangan real  
 
-**Jumlah Subinterval** 
-- Semakin besar n → hasil lebih akurat """)
+**Jumlah Subinterval**
+- Semakin besar n → hasil lebih akurat
+""")
 
 # ======================================================
-# CSS (MODE GELAP – TOOLBAR TANPA KOTAK)
+# CSS MODE GELAP
 # ======================================================
 dark_css = """
 <style>
-/* ===== BACKGROUND ===== */
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
-
-/* ===== SIDEBAR ===== */
 [data-testid="stSidebar"] {
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
-
-/* ===== TEKS ===== */
 html, body, p, span, label, div, li {
     color: #FFFFFF !important;
 }
-
-/* ===== JUDUL ===== */
 h1, h2, h3, h4, h5, h6 {
     color: #E6ECFF !important;
 }
-
-/* ===== INPUT ===== */
 input, textarea {
     background-color: #152044 !important;
     color: #FFFFFF !important;
     border: 1px solid #3E5FBF !important;
 }
-
-/* ===== TOMBOL ===== */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -95,8 +86,6 @@ button {
 button:hover {
     background-color: #2F3E8F !important;
 }
-
-/* ===== RESULT BOX ===== */
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
@@ -104,7 +93,7 @@ button:hover {
     border-radius: 8px;
 }
 
-/* ===== PLOTLY MODEBAR (TANPA KOTAK) ===== */
+/* Toolbar Plotly – tanpa kotak (dark mode) */
 .plotly .modebar {
     background: transparent !important;
     display: flex !important;
@@ -112,58 +101,46 @@ button:hover {
     gap: 10px !important;
     padding: 6px 0 !important;
 }
-
 .plotly .modebar-btn {
     background: transparent !important;
     border: none !important;
     padding: 4px !important;
 }
-
 .plotly .modebar-btn svg {
     fill: #FFFFFF !important;
     width: 16px !important;
     height: 16px !important;
 }
-
 .plotly .modebar-btn:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255,255,255,0.08) !important;
     border-radius: 6px !important;
-}
-
-.plotly .modebar-btn .modebar-btn-tooltip {
-    background-color: #1F2A5A !important;
-    color: #FFFFFF !important;
-    border-radius: 6px !important;
-    font-size: 12px !important;
 }
 </style>
 """
 
+# ======================================================
+# CSS MODE TERANG
+# ======================================================
 light_css = """
 <style>
 [data-testid="stAppViewContainer"] {
     background-color: #F2F5FF;
 }
-
 [data-testid="stSidebar"] {
     background-color: #EEF2FF;
     border-right: 2px solid #1E3A8A;
 }
-
 html, body, p, span, label, div, li {
     color: #0A1A40 !important;
 }
-
 h1, h2, h3, h4, h5, h6 {
     color: #1E3A8A !important;
 }
-
 input, textarea {
     background-color: #FFFFFF !important;
     color: #0A1A40 !important;
     border: 1px solid #1E3A8A !important;
 }
-
 button {
     background-color: #1E40AF !important;
     color: #FFFFFF !important;
@@ -178,8 +155,10 @@ button:hover {
 </style>
 """
 
-
-st.markdown(dark_css, unsafe_allow_html=True)
+st.markdown(
+    dark_css if st.session_state.dark_mode else light_css,
+    unsafe_allow_html=True
+)
 
 # ======================================================
 # JUDUL
@@ -223,6 +202,7 @@ if st.button("🔍 Hitung Integral"):
     )
 
     st.subheader("📌 Hasil Perhitungan")
+    st.markdown("<div class='result-box'><b>Metode Titik Tengah</b></div>", unsafe_allow_html=True)
     st.write(f"Nilai pendekatan numerik = **{total}**")
 
     st.dataframe(df, use_container_width=True)
@@ -233,7 +213,7 @@ if st.button("🔍 Hitung Integral"):
     fig = make_subplots()
     fig.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
     fig.update_layout(
-        template="plotly_dark",
+        template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
         title="Grafik Fungsi f(x)",
         xaxis_title="x",
         yaxis_title="f(x)"
