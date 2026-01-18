@@ -4,10 +4,9 @@ import sympy as sp
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-from PIL import Image
 
 # ======================================================
-# MAIN PAGE
+# KONFIGURASI HALAMAN
 # ======================================================
 st.set_page_config(
     page_title="Integral Solution – Metode Titik Tengah",
@@ -17,7 +16,7 @@ st.set_page_config(
 )
 
 # ======================================================
-# DARK MODE STATE
+# STATE MODE GELAP
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
@@ -54,30 +53,39 @@ st.sidebar.markdown("""
 """)
 
 # ======================================================
-# CSS (REVISI WARNA SESUAI TOOLBAR KUNING)
+# CSS (TERMASUK PERBAIKAN TOOLBAR GRAFIK)
 # ======================================================
 dark_css = """
 <style>
+/* ===== BACKGROUND ===== */
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
+
+/* ===== SIDEBAR ===== */
 [data-testid="stSidebar"] {
     background-color: #0F172A;
     border-right: 2px solid #1E3A8A;
 }
-h1,h2,h3,h4,h5,h6 {
-    color: #93B4FF;
+
+/* ===== TEKS KONTEN ===== */
+html, body, p, span, label, div, li {
+    color: #FFFFFF !important;
 }
-p, label, span, div {
-    color: #E5EDFF;
+
+/* ===== JUDUL ===== */
+h1, h2, h3, h4, h5, h6 {
+    color: #E6ECFF !important;
 }
+
+/* ===== INPUT ===== */
 input, textarea {
     background-color: #152044 !important;
-    color: #E5EDFF !important;
+    color: #FFFFFF !important;
     border: 1px solid #3E5FBF !important;
 }
 
-/* ===== TOMBOL UTAMA (DISAMAKAN DENGAN TOOLBAR) ===== */
+/* ===== TOMBOL UTAMA ===== */
 button {
     background-color: #1F2A5A !important;
     color: #FFFFFF !important;
@@ -89,17 +97,50 @@ button {
 button:hover {
     background-color: #2F3E8F !important;
 }
-
-/* Ikon tombol */
 button svg {
     fill: #FFFFFF !important;
 }
 
+/* ===== RESULT BOX ===== */
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
+    color: #FFFFFF !important;
+}
+
+/* ===== TOOLBAR GRAFIK PLOTLY ===== */
+.plotly .modebar {
+    background: transparent !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 6px 0 !important;
+}
+
+.plotly .modebar-btn {
+    background-color: #1F2A5A !important;
+    border-radius: 8px !important;
+    padding: 6px 8px !important;
+    margin: 0 !important;
+}
+
+.plotly .modebar-btn svg {
+    fill: #FFFFFF !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.plotly .modebar-btn:hover {
+    background-color: #2F3E8F !important;
+}
+
+.plotly .modebar-btn .modebar-btn-tooltip {
+    background-color: #1F2A5A !important;
+    color: #FFFFFF !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
 }
 </style>
 """
@@ -112,42 +153,6 @@ light_css = """
 [data-testid="stSidebar"] {
     background-color: #EEF2FF;
     border-right: 2px solid #1E3A8A;
-}
-h1,h2,h3,h4,h5,h6 {
-    color: #1E3A8A;
-}
-p, label, span, div {
-    color: #0A1A40;
-}
-input, textarea {
-    background-color: #FFFFFF !important;
-    color: #0A1A40 !important;
-    border: 1px solid #1E3A8A !important;
-}
-
-/* ===== TOMBOL UTAMA (DISAMAKAN DENGAN TOOLBAR) ===== */
-button {
-    background-color: #1F2A5A !important;
-    color: #FFFFFF !important;
-    border-radius: 10px !important;
-    border: none !important;
-    padding: 0.6em 1.3em !important;
-    font-weight: 600 !important;
-}
-button:hover {
-    background-color: #2F3E8F !important;
-}
-
-/* Ikon tombol */
-button svg {
-    fill: #FFFFFF !important;
-}
-
-.result-box {
-    background-color: #E9EEFF;
-    border-left: 4px solid #1E3A8A;
-    padding: 12px;
-    border-radius: 8px;
 }
 </style>
 """
@@ -197,12 +202,6 @@ if st.button("🔍 Hitung Integral"):
 
     st.subheader("📌 Hasil Perhitungan")
 
-    st.markdown("<div class='result-box'><b>Integral Tak Tentu</b></div>", unsafe_allow_html=True)
-    st.latex(r"\int f(x)\,dx = " + sp.latex(sp.integrate(f_sym, x)) + r" + C")
-
-    st.markdown("<div class='result-box'><b>Integral Tentu</b></div>", unsafe_allow_html=True)
-    st.latex(sp.latex(sp.integrate(f_sym, (x, a_val, b_val))))
-
     st.markdown("<div class='result-box'><b>Metode Titik Tengah</b></div>", unsafe_allow_html=True)
     st.write(f"Nilai pendekatan numerik = **{total}**")
 
@@ -215,7 +214,7 @@ if st.button("🔍 Hitung Integral"):
     fig.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
 
     fig.update_layout(
-        template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
+        template="plotly_dark",
         title="Grafik Fungsi f(x)",
         xaxis_title="x",
         yaxis_title="f(x)"
