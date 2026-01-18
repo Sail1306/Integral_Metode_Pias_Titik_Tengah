@@ -55,7 +55,7 @@ st.sidebar.markdown("""
 st.sidebar.markdown(
     """
     <div class="sidebar-footer">
-        Made with ❤️ by <b>Your Name</b>
+        Made with ❤️ by <b>YSail</b>
     </div>
     """,
     unsafe_allow_html=True
@@ -66,9 +66,7 @@ st.sidebar.markdown(
 # ======================================================
 dark_css = """
 <style>
-/* ================================================= */
-/* APP BACKGROUND */
-/* ================================================= */
+
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
@@ -93,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ================================================= */
-/* HEADER ATAS – REVISI SESUAI GAMBAR 2 */
+/* HEADER ATAS */
 /* ================================================= */
 header[data-testid="stHeader"] {
     background-color: #0B122B !important;
@@ -114,7 +112,7 @@ header[data-testid="stHeader"] button:hover {
 }
 
 /* ================================================= */
-/* ICON HEADER – ATURAN AWAL (DIPERTAHANKAN) */
+/* ICON HEADER */
 /* ================================================= */
 header[data-testid="stHeader"] svg {
     fill: #E5E7EB !important;
@@ -163,7 +161,7 @@ button:hover {
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 12px;
+    font-size: 24px;
     color: #CBD5F5 !important;
     opacity: 0.85;
     pointer-events: none;
@@ -269,7 +267,7 @@ button:hover {
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 12px;
+    font-size: 24px;
     color: #374151 !important;
     opacity: 0.85;
     pointer-events: none;
