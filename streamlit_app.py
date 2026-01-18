@@ -57,114 +57,90 @@ st.sidebar.markdown("""
 # ======================================================
 dark_css = """
 <style>
+
 /* =============================== */
-/* BACKGROUND UTAMA */
+/* ROOT APP (PALING KUAT) */
 /* =============================== */
-[data-testid="stAppViewContainer"] {
-    background: linear-gradient(180deg, #0B122B 0%, #0E163A 100%);
+.stApp,
+[data-testid="stAppViewContainer"] > section {
+    background: linear-gradient(180deg, #0B122B 0%, #0E163A 100%) !important;
 }
 
 /* =============================== */
 /* SIDEBAR */
 /* =============================== */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0A1026 0%, #0E1538 100%);
-    border-right: 1px solid rgba(255,255,255,0.08);
+[data-testid="stSidebar"] > div:first-child {
+    background: linear-gradient(180deg, #0A1026 0%, #0E1538 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.08) !important;
 }
 
 /* =============================== */
 /* TEKS */
 /* =============================== */
-html, body, p, span, label, div, li {
+.stApp * {
     color: #E5E7EB !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.stApp h1,
+.stApp h2,
+.stApp h3,
+.stApp h4,
+.stApp h5,
+.stApp h6 {
     color: #F9FAFB !important;
 }
 
 /* =============================== */
-/* HEADER ATAS */
+/* INPUT (BASEWEB – KUNCI) */
 /* =============================== */
-header, [data-testid="stHeader"] {
-    background: #0B122B !important;
-    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-}
-
-header svg {
-    fill: #E5E7EB !important;
-}
-
-/* =============================== */
-/* INPUT FIELD */
-/* =============================== */
-input, textarea {
+div[data-baseweb="input"] input,
+div[data-baseweb="textarea"] textarea {
     background: rgba(255,255,255,0.06) !important;
     color: #FFFFFF !important;
     border: 1px solid rgba(255,255,255,0.25) !important;
-    border-radius: 10px !important;
-    padding: 0.6em 0.8em !important;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: rgba(255,255,255,0.6) !important;
-}
-
-input:focus,
-textarea:focus {
-    outline: none !important;
+    border-radius: 12px !important;
     box-shadow: none !important;
+}
+
+/* Fokus input */
+div[data-baseweb="input"] input:focus,
+div[data-baseweb="textarea"] textarea:focus {
     border: 1px solid rgba(255,255,255,0.5) !important;
+    outline: none !important;
 }
 
 /* =============================== */
 /* BUTTON */
 /* =============================== */
-button {
+.stApp button {
     background: rgba(255,255,255,0.08) !important;
     color: #FFFFFF !important;
     border: 1px solid rgba(255,255,255,0.25) !important;
-    border-radius: 10px !important;
-    padding: 0.6em 1.3em !important;
-    font-weight: 500 !important;
+    border-radius: 12px !important;
 }
 
-button:hover {
+.stApp button:hover {
     background: rgba(255,255,255,0.15) !important;
 }
 
 /* =============================== */
-/* NUMBER INPUT (+ / -) */
+/* HEADER */
 /* =============================== */
-[data-testid="stNumberInput"] button {
-    background: rgba(255,255,255,0.08) !important;
-    border: none !important;
-    color: #FFFFFF !important;
+header[data-testid="stHeader"] {
+    background: #0B122B !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
 }
 
 /* =============================== */
-/* RESULT BOX */
+/* PLOTLY */
 /* =============================== */
-.result-box {
-    background: rgba(255,255,255,0.05);
-    border-left: 4px solid #60A5FA;
-    border-radius: 10px;
-}
-
-/* =============================== */
-/* GRAFIK */
-/* =============================== */
-.plotly .modebar {
-    background: transparent !important;
-    box-shadow: none !important;
-}
-
+.plotly .modebar,
 .plotly .modebar-btn {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
 }
+
 </style>
 """
 
