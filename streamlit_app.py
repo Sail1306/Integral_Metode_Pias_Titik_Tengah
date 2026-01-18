@@ -199,6 +199,13 @@ button {
 button:hover {
     background-color: #F3F4F6 !important;
 }
+
+[data-testid="stSidebar"] div[data-baseweb="checkbox"] {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 </style>
 """
 
