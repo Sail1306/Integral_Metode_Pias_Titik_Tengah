@@ -161,7 +161,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #111827 !important;
 }
 
-/* Toolbar atas */
+/* Toolbar */
 header, [data-testid="stHeader"] {
     background-color: #FFFFFF !important;
     border-bottom: 1px solid #9CA3AF !important;
@@ -178,39 +178,53 @@ input, textarea {
     border: 1px solid #9CA3AF !important;
 }
 
-/* Sidebar tools */
-[data-testid="stSidebar"] button,
-[data-testid="stSidebar"] input[type="checkbox"] + div {
-    background-color: #FFFFFF !important;
-    border: 1px solid #9CA3AF !important;
-    color: #111827 !important;
-}
-
-/* Tombol utama */
+/* Tombol */
 button {
     background-color: #FFFFFF !important;
     color: #111827 !important;
     border: 1px solid #9CA3AF !important;
     border-radius: 8px !important;
     padding: 0.6em 1.3em !important;
-    font-weight: 500 !important;
 }
 
 button:hover {
     background-color: #F3F4F6 !important;
 }
 
-/* =============================================== */
-/* FIX FINAL: HILANGKAN OUTLINE CHECKBOX MODE GELAP */
-/* =============================================== */
+/* ===================================================== */
+/* FIX FINAL MUTLAK: OUTLINE CHECKBOX MODE GELAP SIDEBAR */
+/* ===================================================== */
+
+/* Wrapper utama */
 [data-testid="stSidebar"] div[data-baseweb="checkbox"] {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
+/* Semua anak */
 [data-testid="stSidebar"] div[data-baseweb="checkbox"] * {
     border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Saat focus / active / hover */
+[data-testid="stSidebar"] div[data-baseweb="checkbox"]:focus,
+[data-testid="stSidebar"] div[data-baseweb="checkbox"]:focus-visible,
+[data-testid="stSidebar"] div[data-baseweb="checkbox"]:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Label internal */
+[data-testid="stSidebar"] div[data-baseweb="checkbox"] label {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* DIV yang sering jadi sumber outline */
+[data-testid="stSidebar"] div[data-baseweb="checkbox"] div {
     outline: none !important;
     box-shadow: none !important;
 }
