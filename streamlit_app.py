@@ -10,14 +10,14 @@ from PIL import Image
 # MAIN PAGE
 # ======================================================
 st.set_page_config(
-    page_title="Integral Solution – Metode Titik Tengah",
+    page_title="Integral Solution – Metode Pias Titik Tengah",
     page_icon="📐",
     layout="centered",
     initial_sidebar_state="expanded"
 )
 
 # ======================================================
-# DARK MODE
+# DARK MODE STATE
 # ======================================================
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
@@ -58,19 +58,42 @@ st.sidebar.markdown("""
 # ======================================================
 dark_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #0C132B; }
-[data-testid="stSidebar"] { background-color: #0F172A; border-right: 2px solid #1E3A8A; }
-h1,h2,h3,h4,h5,h6 { color: #93B4FF; }
-p, label, span, div { color: #E5EDFF; }
+[data-testid="stAppViewContainer"] {
+    background-color: #0C132B;
+}
+[data-testid="stSidebar"] {
+    background-color: #0F172A;
+    border-right: 2px solid #1E3A8A;
+}
+h1,h2,h3,h4,h5,h6 {
+    color: #93B4FF;
+}
+p, label, span, div {
+    color: #E5EDFF;
+}
 input, textarea {
     background-color: #152044 !important;
     color: #E5EDFF !important;
     border: 1px solid #3E5FBF !important;
 }
+
 button {
-    background-color: #1E3A8A !important;
+    background-color: #1F2A5A !important;
     color: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 0.6em 1.3em !important;
+    font-weight: 600 !important;
 }
+button:hover {
+    background-color: #2F3E8F !important;
+}
+
+/* Ikon tombol */
+button svg {
+    fill: #FFFFFF !important;
+}
+
 .result-box {
     background-color: #10182F;
     border-left: 4px solid #3F66FF;
@@ -82,19 +105,42 @@ button {
 
 light_css = """
 <style>
-[data-testid="stAppViewContainer"] { background-color: #F2F5FF; }
-[data-testid="stSidebar"] { background-color: #EEF2FF; border-right: 2px solid #1E3A8A; }
-h1,h2,h3,h4,h5,h6 { color: #1E3A8A; }
-p, label, span, div { color: #0A1A40; }
+[data-testid="stAppViewContainer"] {
+    background-color: #F2F5FF;
+}
+[data-testid="stSidebar"] {
+    background-color: #EEF2FF;
+    border-right: 2px solid #1E3A8A;
+}
+h1,h2,h3,h4,h5,h6 {
+    color: #1E3A8A;
+}
+p, label, span, div {
+    color: #0A1A40;
+}
 input, textarea {
-    background-color: white !important;
+    background-color: #FFFFFF !important;
     color: #0A1A40 !important;
     border: 1px solid #1E3A8A !important;
 }
+
 button {
-    background-color: #1E40AF !important;
-    color: white !important;
+    background-color: #1F2A5A !important;
+    color: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 0.6em 1.3em !important;
+    font-weight: 600 !important;
 }
+button:hover {
+    background-color: #2F3E8F !important;
+}
+
+/* Ikon tombol */
+button svg {
+    fill: #FFFFFF !important;
+}
+
 .result-box {
     background-color: #E9EEFF;
     border-left: 4px solid #1E3A8A;
@@ -124,7 +170,6 @@ n = st.number_input("Jumlah subinterval (n):", 1, 10000, 10)
 # PROSES
 # ======================================================
 if st.button("🔍 Hitung Integral"):
-
     a_val = float(a)
     b_val = float(b)
 
@@ -163,24 +208,15 @@ if st.button("🔍 Hitung Integral"):
 
     xx = np.linspace(a_val, b_val, 400)
     yy = np.array(f_num(xx), dtype=float)
-    mask = np.isfinite(yy)
 
     fig = make_subplots()
-    fig.add_trace(go.Scatter(
-        x=xx[mask],
-        y=yy[mask],
-        mode="lines",
-        name="f(x)"
-    ))
+    fig.add_trace(go.Scatter(x=xx, y=yy, mode="lines", name="f(x)"))
 
     fig.update_layout(
         template="plotly_dark" if st.session_state.dark_mode else "plotly_white",
         title="Grafik Fungsi f(x)",
         xaxis_title="x",
-        yaxis_title="f(x)",
-        font=dict(
-            color="#E5EDFF" if st.session_state.dark_mode else "#0A1A40"
-        )
+        yaxis_title="f(x)"
     )
 
     st.plotly_chart(fig, use_container_width=True)
