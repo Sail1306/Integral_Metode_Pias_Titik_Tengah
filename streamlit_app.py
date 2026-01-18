@@ -53,73 +53,47 @@ st.sidebar.markdown("""
 """)
 
 # ======================================================
-# CSS MODE GELAP (WARNA DINETRALKAN)
+# CSS MODE GELAP (SAMA SEPERTI SEBELUMNYA)
 # ======================================================
 dark_css = """
 <style>
-/* ===== APP & SIDEBAR ===== */
 [data-testid="stAppViewContainer"] {
     background-color: #0C132B;
 }
 [data-testid="stSidebar"] {
     background-color: #0F172A;
-    border-right: 1px solid #9CA3AF;
+    border-right: 2px solid #1E3A8A;
 }
-
-/* ===== TEKS ===== */
 html, body, p, span, label, div, li {
     color: #FFFFFF !important;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: #F9FAFB !important;
+    color: #E6ECFF !important;
 }
-
-/* ===== INPUT ===== */
 input, textarea {
-    background-color: #FFFFFF !important;
-    color: #111827 !important;
-    border: 1px solid #9CA3AF !important;
+    background-color: #152044 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #3E5FBF !important;
 }
-
-/* ===== TOOLBAR ATAS STREAMLIT ===== */
-header, [data-testid="stHeader"] {
-    background-color: #FFFFFF !important;
-    border-bottom: 1px solid #9CA3AF !important;
-}
-header svg {
-    fill: #374151 !important;
-}
-
-/* ===== SIDEBAR TOOLBAR / CHECKBOX ===== */
-[data-testid="stSidebar"] button,
-[data-testid="stSidebar"] input[type="checkbox"] + div {
-    background-color: #FFFFFF !important;
-    border: 1px solid #9CA3AF !important;
-    color: #111827 !important;
-}
-
-/* ===== TOMBOL UTAMA (NETRAL) ===== */
 button {
-    background-color: #FFFFFF !important;
-    color: #111827 !important;
-    border: 1px solid #9CA3AF !important;
-    border-radius: 8px !important;
+    background-color: #1F2A5A !important;
+    color: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: none !important;
     padding: 0.6em 1.3em !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
 }
 button:hover {
-    background-color: #F3F4F6 !important;
+    background-color: #2F3E8F !important;
 }
-
-/* ===== RESULT BOX ===== */
 .result-box {
-    background-color: #111827;
-    border-left: 4px solid #9CA3AF;
+    background-color: #10182F;
+    border-left: 4px solid #3F66FF;
     padding: 12px;
     border-radius: 8px;
 }
 
-/* ===== TOOLBAR PLOTLY (MINIMAL) ===== */
+/* Plotly toolbar – dark mode tanpa kotak */
 .plotly .modebar {
     background: transparent !important;
 }
@@ -130,11 +104,15 @@ button:hover {
 .plotly .modebar-btn svg {
     fill: #FFFFFF !important;
 }
+.plotly .modebar-btn:hover {
+    background: rgba(255,255,255,0.08) !important;
+    border-radius: 6px !important;
+}
 </style>
 """
 
 # ======================================================
-# CSS MODE TERANG (WARNA DINETRALKAN)
+# CSS MODE TERANG (NETRAL PUTIH + OUTLINE ABU)
 # ======================================================
 light_css = """
 <style>
@@ -145,22 +123,37 @@ light_css = """
     background-color: #FFFFFF;
     border-right: 1px solid #9CA3AF;
 }
+
+/* Teks */
 html, body, p, span, label, div, li {
     color: #111827 !important;
 }
 h1, h2, h3, h4, h5, h6 {
     color: #111827 !important;
 }
+
+/* Toolbar atas */
+header, [data-testid="stHeader"] {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #9CA3AF !important;
+}
+header svg {
+    fill: #374151 !important;
+}
+
+/* Input */
 input, textarea {
     background-color: #FFFFFF !important;
     color: #111827 !important;
     border: 1px solid #9CA3AF !important;
 }
 
-/* Toolbar atas */
-header, [data-testid="stHeader"] {
+/* Sidebar tools */
+[data-testid="stSidebar"] button,
+[data-testid="stSidebar"] input[type="checkbox"] + div {
     background-color: #FFFFFF !important;
-    border-bottom: 1px solid #9CA3AF !important;
+    border: 1px solid #9CA3AF !important;
+    color: #111827 !important;
 }
 
 /* Tombol utama */
@@ -170,9 +163,10 @@ button {
     border: 1px solid #9CA3AF !important;
     border-radius: 8px !important;
     padding: 0.6em 1.3em !important;
+    font-weight: 500 !important;
 }
 button:hover {
-    background-color: #E5E7EB !important;
+    background-color: #F3F4F6 !important;
 }
 </style>
 """
