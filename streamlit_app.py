@@ -55,7 +55,7 @@ st.sidebar.markdown("""
 st.sidebar.markdown(
     """
     <div class="sidebar-footer">
-        Made with ❤️ by <b>YSail</b>
+        Made with ❤️ by <b> Sail </b>
     </div>
     """,
     unsafe_allow_html=True
@@ -161,7 +161,7 @@ button:hover {
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 24px;
+    font-size: 15px;
     color: #CBD5F5 !important;
     opacity: 0.85;
     pointer-events: none;
@@ -267,7 +267,7 @@ button:hover {
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 24px;
+    font-size: 15px;
     color: #374151 !important;
     opacity: 0.85;
     pointer-events: none;
