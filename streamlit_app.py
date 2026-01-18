@@ -157,9 +157,18 @@ button:hover {
     border-radius: 8px;
 }
 
-/* ================================================= */
-/* PLOTLY TOOLBAR */
-/* ================================================= */
+.sidebar-footer {
+    position: fixed;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #CBD5F5 !important;
+    opacity: 0.85;
+    pointer-events: none;
+}
+
 .plotly .modebar {
     background: transparent !important;
     box-shadow: none !important;
@@ -254,9 +263,17 @@ button:hover {
     background-color: #F3F4F6 !important;
 }
 
-/* ================================================= */
-/* FIX LIGHT MODE: HILANGKAN OUTLINE TOOLBAR PLOTLY */
-/* ================================================= */
+.sidebar-footer {
+    position: fixed;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #374151 !important;
+    opacity: 0.85;
+    pointer-events: none;
+}
 
 .plotly .modebar {
     background: transparent !important;
