@@ -146,6 +146,7 @@ light_css = """
 [data-testid="stAppViewContainer"] {
     background-color: #F9FAFB;
 }
+
 [data-testid="stSidebar"] {
     background-color: #FFFFFF;
     border-right: 1px solid #9CA3AF;
@@ -155,6 +156,7 @@ light_css = """
 html, body, p, span, label, div, li {
     color: #111827 !important;
 }
+
 h1, h2, h3, h4, h5, h6 {
     color: #111827 !important;
 }
@@ -164,6 +166,7 @@ header, [data-testid="stHeader"] {
     background-color: #FFFFFF !important;
     border-bottom: 1px solid #9CA3AF !important;
 }
+
 header svg {
     fill: #374151 !important;
 }
@@ -192,6 +195,7 @@ button {
     padding: 0.6em 1.3em !important;
     font-weight: 500 !important;
 }
+
 button:hover {
     background-color: #F3F4F6 !important;
 }
